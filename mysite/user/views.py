@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def user(request):
@@ -21,3 +22,6 @@ def user(request):
         # Return an 'invalid login' error message.
         return render(request, 'login.html', {})
     
+
+def register(request):
+    return render(request, 'register.html', {})
