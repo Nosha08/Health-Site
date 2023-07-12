@@ -14,7 +14,7 @@ def login1(request):
             login(request, user)
             # Redirect to a success page.
             print('Yay')
-            return redirect('/calendar')
+            return redirect('/calendar/make_appointment')
         else:
             messages.error(request, ('Error logging in!'))
             print('No')
@@ -34,9 +34,14 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ('Registration Successful!'))
-            return redirect('/calendar')
+            return redirect('/calendar/make_appointment')
         
     else:
         form = UserCreationForm()
 
     return render(request, 'register.html', {'form': form})
+
+def logout1(request):
+    logout(request)
+    messages.success(request, ('You have been successfully logged out!'))
+    return redirect('/user/login')
