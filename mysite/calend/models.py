@@ -25,7 +25,7 @@ TIME_CHOICES = (
 )
 class Appointment(models.Model):
     date = models.DateField()
-    time = models.CharField(max_length = 10, choices = TIME_CHOICES, default = '9:00')
+    time = models.CharField(max_length = 20, choices = TIME_CHOICES)
 
     def __str__(self):
         return "Date: " + str(self.date) + " Time: " + str(self.time) + ":00"

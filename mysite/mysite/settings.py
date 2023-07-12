@@ -62,6 +62,14 @@ INTERNAL_IPS = [
 
 def show_toolbar(request):
     return True
+
+DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
+}                                                              # <-- NEW
+
+if DEBUG:                                                      # <-- NEW
+    import mimetypes                                           # <-- NEW          
+    mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
