@@ -9,13 +9,13 @@ def appointment(request):
     return render(request, 'make_appointment.html',{})
 
 def create(request):
-    form = AppointmentForm
     submitted = False
     if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/make_appointment?submitted=True')
+            
+            return HttpResponseRedirect('/calendar/make_appointment?submitted=True')
     else:
         form = AppointmentForm
         if "submitted" in request.GET:
