@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
-def user(request):
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -20,8 +20,22 @@ def user(request):
             return redirect('/user')     
     else:
         # Return an 'invalid login' error message.
-        return render(request, 'login.html', {})
+        return render(request, 'login1.html', {})
     
 
 def register(request):
-    return render(request, 'register.html', {})
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ('Registration Successful!'))
+            return redirect('calendar')
+        
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'register.html', {'form': form})
