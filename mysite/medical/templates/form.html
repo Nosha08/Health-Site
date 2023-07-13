@@ -4,42 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://api.geoapify.com/v1/geocode/autocomplete?text=Mosco&apiKey=2f66e0d2e25a40ba8a098c2c3a03d727"></script>
     <title>Document</title>
 </head>
 <body>
 
-    <form method="POST" action="">
+    <form action="" method=POST>
         {% csrf_token %}
 
-        <label for="name">Office Name</label>
+
+        <label for="name1">Office Name</label>
         <input type="text" id="name" name="name">
 
-        <label for="opening">Opening Time</label>
-        <input type="time" id="opening" name="opening">
+        <label for="open1">Opening Time</label>
+        <input type="time" id="open" name="open">
 
-        <label for="closing">Closing Time</label>
-        <input type="time" id="closing" name="closing">
+        <label for="close1">Close Time</label>
+        <input type="time" id="close" name="close">
 
-        <label for="location">Location</label>
-        <input type="text" id="autocomplete" name="location">
+        <label for="location1">Location</label>
+        <input type="text" name="location" id="location">
 
         <input type="submit" value="Submit">
     </form>
-
-    {{ data }}
-
-    <!-- Include necessary scripts for Geoapify autocomplete -->
-    <script src="https://api.geoapify.com/v1/autocomplete.js"></script>
-    <script>
-        // Initialize Geoapify Autocomplete
-        const autoComplete = new GeoapifyAutocomplete.autocomplete({
-            apiKey: '2f66e0d2e25a40ba8a098c2c3a03d727',
-            inputField: document.getElementById('autocomplete'),
-            onPlaceSelected: (place) => {
-                console.log(place.properties);
-            }
-        });
-    </script>
 
 </body>
 </html>
