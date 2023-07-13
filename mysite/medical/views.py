@@ -8,11 +8,21 @@ def index(request):
 
 
 def form(request):
-    if request.method == 'POST':
-
-        form = OfficeForm(request.POST)
+    if request.method == 'GET':
+        form = OfficeForm
         print(form)
-        '''
+        return render(request, 'form.html', {'form', form})
+
+    '''
+    if request.method == 'POST':
+        form = OfficeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'form.html', {'form', form})
+    else:
+        
+        if "submitted" in request.GET:
+            submitted = True
         if name and open and close and location != '':
             return redirect('/medical/results')
         else:
