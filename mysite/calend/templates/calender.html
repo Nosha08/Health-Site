@@ -1,20 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
+    {% if submitted %}
+    Your appointment was created sucessfully!
+
+    {% else %}
     <center>
     <h1>Hello. Events for {{ month }} {{ year }}</h1>
+    <div id = "calender">
+        <button onclick = "back()">Back</button>
+        <button onclick = "next()">Next</button>
     {{ cal|safe }}
-
+    </div>
     </center>
+
+
+    {% if appointment_list %}
+
+    {% for entry in appointment_list %}
+    {% if entry.date == date %}
+    <p>{{ entry.date }}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+    <h1>Make an Appointment</h1>
+    <form action = "" method = POST>
+        {% csrf_token %}
+
+        {{ form.date.as_hidden }}
+        {{ form.time }}
+        
+        <input type = "submit" value = "Submit">
+
+    </form>
+
+
+
+    {% endif %}
+
+
+
+
+
+
     <style>
         td{
-            padding:20px
+            padding:25px
+        }
+        .red{
+            color:red
+        }
+        .Calender-td:hover{
+            cursor:pointer
+        }
+        table, .Calender-td{
+            border: 2px solid black;
+            border-collapse: collapse
         }
     </style>
+    <script>
+        var calender = document.getElementById("calender")
+        var month = "{{ month }}"
+        var year = "{{ year }}"
+        var month_number = "{{ month_number }}"
+        function fetch_data(e){
+            var day = e.target.innerHTML
+            
+            if (Number.isInteger(parseInt(day))){
+                window.location.replace("/calendar/calender/" + year + "/" + month + "/" + day + "/");
+            }
+             //var day = $("td:contains(" + CSS.escape(i) + ")").addClass("red")
+        }
+        //add classes to every number. That way we can add cursor hover property
+        for(i=0; i<32; i++){
+            var day = $("td:contains(" + CSS.escape(i) + ")").addClass("Calender-td")
+
+        }
+//$('table').on('click', 'td', fetch_data())
+calender.addEventListener('click', fetch_data, false)
+months = {
+        "January":1,
+        "February":2,
+        "March":3,
+        "April":4,
+        "May":5,
+        "June":6,
+        "July":7,
+        "August":8,
+        "September":9,
+        "October":10,
+        "November":11,
+        "December":12
+    }
+        function next(){
+            if(month_number == 12){
+                year = parseInt(year)
+                month_number = 1;
+                year++;
+            } else {
+                month_number++;
+            }
+            for (val of Object.keys(months)) {
+                if(months[val] == month_number){
+                    month = val
+                }
+}
+            //month
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/");
+        }
+
+        function back(){
+            if(month_number == 1){
+                year = parseInt(year)
+                month_number = 12;
+                year--;
+            } else {
+                month_number--;
+            }
+            for (val of Object.keys(months)) {
+                if(months[val] == month_number){
+                    month = val
+                }
+}
+            //month
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/");
+        }
+    </script>
+
 </body>
 </html>
