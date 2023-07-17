@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class OfficeForm(models.Model):
@@ -14,3 +15,6 @@ class Office(models.Model):
     close = models.TimeField(auto_now=False, auto_now_add=False)
     location = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
+
+    def get_absolute_url(self):
+        return reverse('results', args=[str(self.id)])
