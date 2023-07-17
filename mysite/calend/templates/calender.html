@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<p>
     {% if submitted %}
-    Your appointment was created sucessfully!
+    <p>Your appointment was created sucessfully!</p>
+    <button id = "submitted_btn"><a id = "submitted_link" href = "/..">Home</a></button>
 
     {% else %}
     <center>
@@ -21,34 +22,23 @@
     </center>
 
 
-    {% if appointment_list %}
-
-    {% for entry in appointment_list %}
-    {% if entry.date == date %}
-    <p>{{ entry.date }}</p>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-
-
     <h1>Make an Appointment</h1>
-    <form action = "" method = POST>
+    <form id = "appointment_form" action = "" method = POST>
         {% csrf_token %}
-
         {{ form.date.as_hidden }}
-        {{ form.time }}
-        
-        <input type = "submit" value = "Submit">
-
+        {{ form.time.as_hidden }}
+        {% for i in time_list %}
+        {% if i in times %}
+        <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
+        {% else %}
+        <button type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
+        {% endif %}
+        {% endfor %}
+        <button type = "button" onclick = "submit_form()">Submit</button>
+        <p id = "errors"></p>
     </form>
 
-
-
     {% endif %}
-
-
-
-
 
 
     <style>
@@ -65,23 +55,46 @@
             border: 2px solid black;
             border-collapse: collapse
         }
+        .selected{
+            background-color: darkslategrey;
+            color:white;
+            font-weight: bold;
+        }
+        .selected_time{
+            background-color: cornflowerblue;
+        }
+
     </style>
     <script>
+
         var calender = document.getElementById("calender")
         var month = "{{ month }}"
-        var year = "{{ year }}"
-        var month_number = "{{ month_number }}"
+        var year = parseInt("{{ year }}")
+        var month_number = parseInt("{{ month_number }}")
+        var day = parseInt("{{ day }}")
+        var full_date = [year, month_number, day].join('-');        
+        document.getElementById("id_date").value = full_date
+        $("td:contains(" + CSS.escape(day) + "):first").addClass("selected")
+
+        function submit_form(){
+            if(document.getElementById(time_id).value != ""){
+                document.getElementById("appointment_form").submit()
+            }else{
+                document.getElementById("errors").innerHTML("Please select a time")
+            }
+        }
+
+
         function fetch_data(e){
-            var day = e.target.innerHTML
+            let day = e.target.innerHTML
             
             if (Number.isInteger(parseInt(day))){
                 window.location.replace("/calendar/calender/" + year + "/" + month + "/" + day + "/");
             }
-             //var day = $("td:contains(" + CSS.escape(i) + ")").addClass("red")
         }
         //add classes to every number. That way we can add cursor hover property
         for(i=0; i<32; i++){
-            var day = $("td:contains(" + CSS.escape(i) + ")").addClass("Calender-td")
+            $("td:contains(" + CSS.escape(i) + ")").addClass("Calender-td")
 
         }
 //$('table').on('click', 'td', fetch_data())
@@ -133,7 +146,22 @@ months = {
             //month
             window.location.replace("/calendar/calender/" + year + "/" + month + "/");
         }
+var old_id = "None";
+function time_set(time){
+    document.getElementById("id_time").value = time
+
+    if (old_id != "None"){
+        //alert(old_id)
+        document.getElementById(old_id).classList.remove("selected_time")
+    }
+    old_id = time
+    document.getElementById(time).classList.add("selected_time")
+}
+
+        
     </script>
 
 </body>
 </html>
+
+// put an error message for no time selected. see if you can check teh value of a hidden field through .value and if the default = ""
