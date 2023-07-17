@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
+from .forms import *
 
 
 def index(request):
@@ -8,28 +9,22 @@ def index(request):
 
 
 def form(request):
-    if request.method == 'GET':
-        form = OfficeForm
-        print(form)
-        return render(request, 'form.html', {'form', form})
-
-    '''
     if request.method == 'POST':
-        form = OfficeForm(request.POST)
+        form = OfficeForm1(request.POST)
         if form.is_valid():
+            global name, opening_time, closing_time, location, description
+            name = form.cleaned_data['name']
+            opening_time = form.cleaned_data['open']
+            closing_time = form.cleaned_data['close']
+            location = form.cleaned_data['location']
+            description = form.cleaned_data['description']
             form.save()
-            return render(request, 'form.html', {'form', form})
+            return redirect('/medical/results') 
     else:
-        
-        if "submitted" in request.GET:
-            submitted = True
-        if name and open and close and location != '':
-            return redirect('/medical/results')
-        else:
-            return redirect('/medical/form')'''
-    
-    return render(request, 'form.html', {'form', form})
+        form = OfficeForm1()
+
+    return render(request, 'form.html', {'form': form})
+
 
 def results(request):
-    pass
-   # return render(request, 'results.html', {'name': name, 'open': open, 'close': close, 'location': location})
+   return render(request, 'results.html', {'name': name, 'opening_time': opening_time, 'closing_time': closing_time, 'location': location, 'description': description})
