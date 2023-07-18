@@ -48,3 +48,7 @@ def results(request, id):
         return redirect('form')
     
     return render(request, 'results.html', {'office': office})
+
+def database(request):
+    offices = Office.objects.all()
+    return render(request, 'database.html', {'offices': offices})

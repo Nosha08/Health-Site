@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +11,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Search for a medical office near you!</h1>
+    <h1>Welcome to HealthTech!</h1>
+    <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
+    <h2>Search for a medical office near you!</h2>
     <form action="" method="POST">
         {% csrf_token %}
         <input type="text" name="query" placeholder="Search..." />
         <button type="submit">Search</button>
       </form>
+
+{% endblock %}
 </body>
 </html>
