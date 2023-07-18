@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<p>
+    {% if submitted %}
+    <p>Your appointment was created sucessfully!</p>
+    <button id = "submitted_btn"><a id = "submitted_link" href = "/..">Home</a></button>
+
+    {% else %}
+    <center>
+    <h1>Hello. Events for {{ month }} {{ year }}</h1>
+    <div id = "calender">
+        <button onclick = "back()">Back</button>
+        <button onclick = "next()">Next</button>
+    {{ cal|safe }}
+    </div>
+    </center>
+
+
+    <h1>Make an Appointment</h1>
+    <form id = "appointment_form" action = "" method = POST>
+        {% csrf_token %}
+        {{ form.date.as_hidden }}
+        {{ form.time.as_hidden }}
+
+        {% for i in time_list %}
+        {% if i in times %}
+        <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
+        {% else %}
+        <button type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
+        {% endif %}
+        {% endfor %}
+        <button type = "button" onclick = "submit_form()">Submit</button>
+        <p id = "errors"></p>
+    </form>
+
+    {% endif %}
+
+
+    <style>
+        td{
+            padding:25px
+        }
+        .red{
+            color:red
+        }
+        .Calender-td:hover{
+            cursor:pointer
+        }
+        table, .Calender-td{
+            border: 2px solid black;
+            border-collapse: collapse
+        }
+        .selected{
+            background-color: darkslategrey;
+            color:white;
+            font-weight: bold;
+        }
+        .selected_time{
+            background-color: cornflowerblue;
+        }
+        #errors{
+            color:red;
+        }
+
+    </style>
+    <script>
+
+        var calender = document.getElementById("calender")
+        var month = "{{ month }}"
+        var year = parseInt("{{ year }}")
+        var month_number = parseInt("{{ month_number }}")
+        var day = parseInt("{{ day }}")
+        var full_date = [year, month_number, day].join('-');    
+        var times_len = parseInt("{{ times_len }}")
+        document.getElementById("id_date").value = full_date
+        $("td:contains(" + CSS.escape(day) + "):first").addClass("selected")
+
+
+        function submit_form(){
+            if(document.getElementById("id_time").value != ""){
+                document.getElementById("appointment_form").submit()
+                document.getElementById("id_month").value = month
+                document.getElementById("id_year").value = year
+                document.getElementById("id_day").value = day
+            }else{
+                document.getElementById("errors").innerHTML = "Please select a Time"
+            }
+        }
+
+
+        function fetch_data(e){
+            let day = e.target.innerHTML
+            
+            if (Number.isInteger(parseInt(day))){
+                window.location.replace("/calendar/calender/" + year + "/" + month + "/" + day + "/");
+            }
+        }
+        //add classes to every number. That way we can add cursor hover property
+        for(i=0; i<32; i++){
+            $("td:contains(" + CSS.escape(i) + ")").addClass("Calender-td")
+
+        }
+//$('table').on('click', 'td', fetch_data())
+calender.addEventListener('click', fetch_data, false)
+months = {
+        "January":1,
+        "February":2,
+        "March":3,
+        "April":4,
+        "May":5,
+        "June":6,
+        "July":7,
+        "August":8,
+        "September":9,
+        "October":10,
+        "November":11,
+        "December":12
+    }
+        function next(){
+            if(month_number == 12){
+                year = parseInt(year)
+                month_number = 1;
+                year++;
+            } else {
+                month_number++;
+            }
+            for (val of Object.keys(months)) {
+                if(months[val] == month_number){
+                    month = val
+                }
+}
+            //month
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/");
+        }
+
+        function back(){
+            if(month_number == 1){
+                year = parseInt(year)
+                month_number = 12;
+                year--;
+            } else {
+                month_number--;
+            }
+            for (val of Object.keys(months)) {
+                if(months[val] == month_number){
+                    month = val
+                }
+}
+            //month
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/");
+        }
+var old_id = "None";
+function time_set(time){
+    document.getElementById("id_time").value = time
+
+    if (old_id != "None"){
+        //alert(old_id)
+        document.getElementById(old_id).classList.remove("selected_time")
+    }
+    old_id = time
+    document.getElementById(time).classList.add("selected_time")
+}
+
+        
+    </script>
+
+</body>
+</html>
