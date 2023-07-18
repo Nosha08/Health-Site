@@ -28,6 +28,9 @@ TIME_CHOICES = {
 class Appointment(models.Model):
     date = models.DateField()
     time = models.CharField(max_length = 20)
+    month = models.IntegerField(max_length = 20, null=True, blank=True)
+    year = models.IntegerField(max_length = 20, null=True, blank=True)
+    day = models.IntegerField(max_length = 20, null=True, blank=True)
 
     def __str__(self):
         return "Date: " + str(self.date) + " Time: " + str(self.time)

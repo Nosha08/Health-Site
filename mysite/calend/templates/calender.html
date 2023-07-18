@@ -27,6 +27,7 @@
         {% csrf_token %}
         {{ form.date.as_hidden }}
         {{ form.time.as_hidden }}
+
         {% for i in time_list %}
         {% if i in times %}
         <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
@@ -63,6 +64,9 @@
         .selected_time{
             background-color: cornflowerblue;
         }
+        #errors{
+            color:red;
+        }
 
     </style>
     <script>
@@ -72,15 +76,20 @@
         var year = parseInt("{{ year }}")
         var month_number = parseInt("{{ month_number }}")
         var day = parseInt("{{ day }}")
-        var full_date = [year, month_number, day].join('-');        
+        var full_date = [year, month_number, day].join('-');    
+        var times_len = parseInt("{{ times_len }}")
         document.getElementById("id_date").value = full_date
         $("td:contains(" + CSS.escape(day) + "):first").addClass("selected")
 
+
         function submit_form(){
-            if(document.getElementById(time_id).value != ""){
+            if(document.getElementById("id_time").value != ""){
                 document.getElementById("appointment_form").submit()
+                document.getElementById("id_month").value = month
+                document.getElementById("id_year").value = year
+                document.getElementById("id_day").value = day
             }else{
-                document.getElementById("errors").innerHTML("Please select a time")
+                document.getElementById("errors").innerHTML = "Please select a Time"
             }
         }
 
@@ -163,6 +172,3 @@ function time_set(time){
 
 </body>
 </html>
-
-// put an error message for no time selected. see if you can check teh value of a hidden field through .value and if the default = ""
-// check errors, it says time_id is not defined

@@ -15,6 +15,7 @@ def create(request, year=2023, month="January", day = 1):
     month = month.capitalize()
     form = AppointmentForm
 
+
     TIME_CHOICES = {
         '9:00': '9:00 AM',
         '9:30': '9:30 AM',
@@ -78,8 +79,21 @@ def create(request, year=2023, month="January", day = 1):
             submitted = True
     appointments_all = Appointment.objects.all().filter(date = send_date)
     times = []
+    times_len = len(TIME_LIST)
     for objects in appointments_all:
-        times.append(objects.time)        
+        times.append(objects.time)
+
+
+
+    for i in appointment_list:
+        Sdate = str(i.date)
+        print(Sdate)
+        separate = Sdate.split("-")
+        print(separate)
+        Smonth = separate[1]
+        Syear = separate[0]
+        print(Smonth)
+        print(Syear)
     return render(request, 'calender.html',{
         "year":year,
         "month":month,
@@ -95,4 +109,5 @@ def create(request, year=2023, month="January", day = 1):
         "time_list": TIME_LIST,
         "appointments_all": appointments_all,
         "times":times,
+        "times_len": times_len,
         })
