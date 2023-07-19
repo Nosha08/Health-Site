@@ -6,6 +6,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Appointment
 from datetime import date
+from .tests import time_choices, time_choices1
 def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 
@@ -53,6 +54,7 @@ def create(request, year=2023, month="January", day = 1):
         "November":11,
         "December":12
     }
+
     for i in months:
         if i == month:
             month_number = months[i]
