@@ -66,10 +66,13 @@ def create(request, year=2023, month="January", day = 1):
     send_date = date(int(year), int(month_number), int(day))
 
     submitted = False
+    duplicate = False
     if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            print("cdc")
+            for i in appointment_list:
+                if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"]:
+                    return HttpResponseRedirect('/calendar/make_appointment?duplicate=True')
             form.save()
             
             return HttpResponseRedirect('/calendar/make_appointment?submitted=True')
@@ -77,6 +80,8 @@ def create(request, year=2023, month="January", day = 1):
         form = AppointmentForm
         if "submitted" in request.GET:
             submitted = True
+        if "duplicate" in request.GET:
+            duplicate = True
     appointments_all = Appointment.objects.all().filter(date = send_date)
     appointments_month = Appointment.objects.all().filter(month = month_number, year = year)
 
@@ -110,4 +115,5 @@ def create(request, year=2023, month="January", day = 1):
         "times": times,
         "times_len": times_len,
         "filled": filled,
+        "duplicate": duplicate,
         })

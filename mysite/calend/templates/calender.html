@@ -7,6 +7,11 @@
     <title>Document</title>
 </head>
 <p>
+    {% if duplicate %}
+
+    <p class = "error" style = "color:red">Error: This timeslot is already taken due to a refresh error. Please refresh your page and pick a different time</p>
+
+    {% else %}
     {% if submitted %}
     <p>Your appointment was created sucessfully!</p>
     <button id = "submitted_btn"><a id = "submitted_link" href = "/../medical/home">Home</a></button>
@@ -46,7 +51,7 @@
 
     <style>
         td{
-            padding:25px
+            padding:28px
         }
         .red{
             color:red
@@ -73,8 +78,13 @@
         .selected_time{
             background-color: cornflowerblue !important;
         }
+        .filled.selected{
+            background-color: rgb(255, 136, 0);
+            color:white;
+            font-weight: bold;
+        }
     </style>
-
+{% endif %}
     <script>
         var calender = document.getElementById("calender")
         var month = "{{ month }}"
@@ -85,6 +95,7 @@
         var times_len = parseInt("{{ times_len }}")
         var filled = {{ filled }}
         var none_left = "False"
+        var last_day = 0
         document.getElementById("id_date").value = full_date
         document.getElementById("id_day").value = day
         document.getElementById("id_month").value = month_number
@@ -146,6 +157,11 @@ months = {
         "November":11,
         "December":12
     }
+
+        var calender_td = document.getElementsByClassName("Calender-td")
+        last_day = calender_td[(calender_td.length-1)].innerHTML
+
+
         function next(){
             if(month_number == 12){
                 year = parseInt(year)
@@ -193,16 +209,30 @@ function time_set(time){
 
 window.addEventListener('keydown', function (e) { 
     if(e.keyCode == 37){
+        //left
+        if (day != 1){
         window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) - 1) + "/");
+        }
     }else if(e.keyCode == 39){
-        if(day != 1){
+        if(day != last_day){
+            //right
             window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) + 1) + "/");
         }
+    }else if(e.keyCode == 38){
+        //up
+        if(day > 7){
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) - 7) + "/");
+        }
+    }else if(e.keyCode == 40){
+        //down
+        if(day < (last_day-6)){
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) + 7) + "/");
+        }
+    }else if(e.keyCode == 13){
+        submit_form()
     }
 }, false);
     </script>
 
 </body>
 </html>
-
-// add maxes so you cant use the arrow keys ofof the month. Find a way to get ht max day
