@@ -7,9 +7,14 @@
     <title>Document</title>
 </head>
 <p>
+    {% if duplicate %}
+
+    <p class = "error" style = "color:red">Error: This timeslot is already taken due to a refresh error. Please go back and refresh your page.</p>
+    <button id = "duplicate_btn" onclick = "history.back()">Back</a></button>
+    {% else %}
     {% if submitted %}
     <p>Your appointment was created sucessfully!</p>
-    <button id = "submitted_btn"><a id = "submitted_link" href = "/medical/home">Home</a></button>
+    <button id = "submitted_btn"><a id = "submitted_link" href = "/../medical/home">Home</a></button>
 
     {% else %}
     <center>
@@ -27,7 +32,9 @@
         {% csrf_token %}
         {{ form.date.as_hidden }}
         {{ form.time.as_hidden }}
-
+        {{ form.day.as_hidden }}
+        {{ form.month.as_hidden }}
+        {{ form.year.as_hidden }}
         {% for i in time_list %}
         {% if i in times %}
         <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
@@ -44,7 +51,7 @@
 
     <style>
         td{
-            padding:25px
+            padding:28px
         }
         .red{
             color:red
@@ -61,16 +68,24 @@
             color:white;
             font-weight: bold;
         }
-        .selected_time{
-            background-color: cornflowerblue;
-        }
         #errors{
             color:red;
         }
-
+        .filled{
+            background-color: red;
+            color:white
+        }
+        .selected_time{
+            background-color: cornflowerblue !important;
+        }
+        .filled.selected{
+            background-color: rgb(255, 136, 0);
+            color:white;
+            font-weight: bold;
+        }
     </style>
+{% endif %}
     <script>
-
         var calender = document.getElementById("calender")
         var month = "{{ month }}"
         var year = parseInt("{{ year }}")
@@ -78,10 +93,26 @@
         var day = parseInt("{{ day }}")
         var full_date = [year, month_number, day].join('-');    
         var times_len = parseInt("{{ times_len }}")
+        var filled = {{ filled }}
+        var none_left = "False"
+        var last_day = 0
         document.getElementById("id_date").value = full_date
+        document.getElementById("id_day").value = day
+        document.getElementById("id_month").value = month_number
+        document.getElementById("id_year").value = year    
         $("td:contains(" + CSS.escape(day) + "):first").addClass("selected")
 
-
+        function cancel_days(){
+            for(i=0;i<filled.length;i++){
+                if(filled[i] >= {{times_len}}){
+                    $("td:contains(" + CSS.escape(i) + "):first").addClass("filled");
+                    if(day == i){
+                        none_left = "True"
+                    }
+                }
+            }
+        }
+        cancel_days()
         function submit_form(){
             if(document.getElementById("id_time").value != ""){
                 document.getElementById("appointment_form").submit()
@@ -89,7 +120,11 @@
                 document.getElementById("id_year").value = year
                 document.getElementById("id_day").value = day
             }else{
+                if(none_left == "False"){
                 document.getElementById("errors").innerHTML = "Please select a Time"
+                }else{
+                    document.getElementById("errors").innerHTML = "This day is complely booked, please choose another one."
+                }
             }
         }
 
@@ -122,6 +157,11 @@ months = {
         "November":11,
         "December":12
     }
+
+        var calender_td = document.getElementsByClassName("Calender-td")
+        last_day = calender_td[(calender_td.length-1)].innerHTML
+
+
         function next(){
             if(month_number == 12){
                 year = parseInt(year)
@@ -167,7 +207,31 @@ function time_set(time){
     document.getElementById(time).classList.add("selected_time")
 }
 
-        
+window.addEventListener('keydown', function (e) { 
+    if(e.keyCode == 37){
+        //left
+        if (day != 1){
+        window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) - 1) + "/");
+        }
+    }else if(e.keyCode == 39){
+        if(day != last_day){
+            //right
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) + 1) + "/");
+        }
+    }else if(e.keyCode == 38){
+        //up
+        if(day > 7){
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) - 7) + "/");
+        }
+    }else if(e.keyCode == 40){
+        //down
+        if(day < (last_day-6)){
+            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) + 7) + "/");
+        }
+    }else if(e.keyCode == 13){
+        submit_form()
+    }
+}, false);
     </script>
 
 </body>

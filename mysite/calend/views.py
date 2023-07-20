@@ -68,10 +68,13 @@ def create(request, year=2023, month="January", day = 1):
     send_date = date(int(year), int(month_number), int(day))
 
     submitted = False
+    duplicate = False
     if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            print("cdc")
+            for i in appointment_list:
+                if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"]:
+                    return HttpResponseRedirect('/calendar/make_appointment?duplicate=True')
             form.save()
             
             return HttpResponseRedirect('/calendar/make_appointment?submitted=True')
@@ -79,23 +82,24 @@ def create(request, year=2023, month="January", day = 1):
         form = AppointmentForm
         if "submitted" in request.GET:
             submitted = True
+        if "duplicate" in request.GET:
+            duplicate = True
     appointments_all = Appointment.objects.all().filter(date = send_date)
+    appointments_month = Appointment.objects.all().filter(month = month_number, year = year)
+
     times = []
     times_len = len(TIME_LIST)
     for objects in appointments_all:
         times.append(objects.time)
 
+    filled = []
+    for i in range(32):
+        filled.append(0)
 
-
-    for i in appointment_list:
-        Sdate = str(i.date)
-        print(Sdate)
-        separate = Sdate.split("-")
-        print(separate)
-        Smonth = separate[1]
-        Syear = separate[0]
-        print(Smonth)
-        print(Syear)
+    for j in appointments_month:
+        for i in range(32):
+            if j.day == i:
+                filled[i] += 1
     return render(request, 'calender.html',{
         "year":year,
         "month":month,
@@ -110,6 +114,8 @@ def create(request, year=2023, month="January", day = 1):
         "time_choices": TIME_CHOICES,
         "time_list": TIME_LIST,
         "appointments_all": appointments_all,
-        "times":times,
+        "times": times,
         "times_len": times_len,
+        "filled": filled,
+        "duplicate": duplicate,
         })
