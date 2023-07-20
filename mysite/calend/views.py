@@ -3,21 +3,26 @@ from .forms import AppointmentForm
 from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
-from datetime import datetime
+from datetime import datetime, date
 from .models import Appointment
 from datetime import date
 from .tests import time_choices, time_choices1
 from medical.views import *
+import datetime 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 
 # def calendar(request,year,month,day = '1'):
+current_month = datetime.datetime.now().month
+current_year = datetime.datetime.now().year
+current_day = datetime.datetime.now().day
 
-def create(request, year=2023, month="January", day = 1):
+print(current_month)
+
+def create(request, year=current_year, month=current_month, day=current_day):
     month = month.capitalize()
     form = AppointmentForm
-    print(time_options)
 
     TIME_CHOICES = {
         '9:00': '9:00 AM',

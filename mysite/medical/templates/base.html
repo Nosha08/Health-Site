@@ -10,15 +10,19 @@
 </head>
 <body>
 
-    <div class="navbar">
-        <a href="/calendar">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-        {% if user.is_authenticated %}
-        <a href="/user/logout">Logout</a>
-        {% endif %}
-    </div>
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <a href="#">Your Logo</a>
+            </div>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">as</a></li>
+                <li><a href="#">hi</a></li>
+            </ul>
+        </div>
+    </nav>
 
     {% block content %}
     

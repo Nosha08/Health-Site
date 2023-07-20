@@ -33,7 +33,6 @@ def form(request):
     return render(request, 'form.html', {'form': form})
 
 
-
 def home(request):
     if request.method == 'POST':
         name1 = request.POST.get('query')
@@ -48,32 +47,25 @@ def home(request):
     return render(request, 'home.html', {})
 
 
-available_times_new = []
-am_list = []
-pm_list = []
-am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
-pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
-time_options = am_strings + pm_strings
 def results(request, id):
     try:
         office = Office.objects.get(id=id)
         new_open = str(office.open).split(':')
         new_open.pop(2)
         final_open = new_open[0] + new_open[1]
-        print(final_open)
         new_close = str(office.close).split(':')
         new_close.pop(2)
         final_close = new_close[0] + new_close[1]
-        print(final_close)
 
         available_times = []
         for x in time_choices:
-            print(x)
             if int(final_open) <= x <= int(final_close):
                 available_times.append(x)
-        print(available_times)
         
-        
+        am_list = []
+        pm_list = []
+
+        available_times_new = []
         for x in available_times:
             if x > 1259:
                 available_times_new.append(x - 1200)
@@ -81,17 +73,11 @@ def results(request, id):
             else:
                 available_times_new.append(x)
                 am_list.append(x)
-
-        print(available_times_new)
-
         am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
+
         pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
 
-        print(am_strings)
-        print(pm_strings)
-
-        time_options.clear()
-          
+        time_options = am_strings + pm_strings
     except Office.DoesNotExist:
         messages.error(request, 'Office not found.')
         return redirect('form')
