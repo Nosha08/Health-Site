@@ -20,50 +20,11 @@ def form(request):
         form = OfficeForm1(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
-            opening_time = form.cleaned_data['open']
-            closing_time = form.cleaned_data['close']
+            open = form.cleaned_data['open']
+            close = form.cleaned_data['close']
             location = form.cleaned_data['location']
             description = form.cleaned_data['description']
             office = form.save()
-
-            new_open = str(opening_time).split(':')
-            new_open.pop(2)
-            final_open = new_open[0] + new_open[1]
-            print(final_open)
-
-            new_close = str(closing_time).split(':')
-            new_close.pop(2)
-            final_close = new_close[0] + new_close[1]
-            print(final_close)
-
-            available_times = []
-            for x in time_choices:
-                print(x)
-                if int(final_open) <= x <= int(final_close):
-                    available_times.append(x)
-            print(available_times)
-            
-            available_times_new = []
-            am_list = []
-            pm_list = []
-            for x in available_times:
-                if x > 1259:
-                    available_times_new.append(x - 1200)
-                    pm_list.append(x - 1200)
-                else:
-                    available_times_new.append(x)
-                    am_list.append(x)
-
-            print(available_times_new)
-
-            am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
-            pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
-
-            print(am_strings)
-            print(pm_strings)
-
-            time_options = am_strings + pm_strings
-            print(time_options)           
 
             return redirect('/medical/home', id=office.id) 
     else:
@@ -89,12 +50,49 @@ def home(request):
 
 def results(request, id):
     try:
-       office = Office.objects.get(id=id)
+        office = Office.objects.get(id=id)
+        new_open = str(office.open).split(':')
+        new_open.pop(2)
+        final_open = new_open[0] + new_open[1]
+        print(final_open)
+        new_close = str(office.close).split(':')
+        new_close.pop(2)
+        final_close = new_close[0] + new_close[1]
+        print(final_close)
+
+        available_times = []
+        for x in time_choices:
+            print(x)
+            if int(final_open) <= x <= int(final_close):
+                available_times.append(x)
+        print(available_times)
+        
+        available_times_new = []
+        am_list = []
+        pm_list = []
+        for x in available_times:
+            if x > 1259:
+                available_times_new.append(x - 1200)
+                pm_list.append(x - 1200)
+            else:
+                available_times_new.append(x)
+                am_list.append(x)
+
+        print(available_times_new)
+
+        am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
+        pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
+
+        print(am_strings)
+        print(pm_strings)
+
+        time_options = am_strings + pm_strings
+        print(time_options)           
     except Office.DoesNotExist:
         messages.error(request, 'Office not found.')
         return redirect('form')
     
-    return render(request, 'results.html', {'office': office})
+    return render(request, 'results.html', {'office': office, 'time_options': time_options})
 
 def database(request):
     offices = Office.objects.all()
