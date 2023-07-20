@@ -4,17 +4,24 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Appointment
+from .models import *
 from datetime import date
-from .tests import time_choices, time_choices1
+import datetime
 from medical.views import *
 
 def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 
 # def calendar(request,year,month,day = '1'):
+current_year = datetime.now().year
 
-def create(request, year=2023, month="January", day = 1):
+current_day = datetime.now().day
+today = datetime.now()
+
+current_month = today.strftime("%B")
+
+print(current_month)
+def create(request,office_id= 1, year=int(current_year), month=str(current_month), day = int(current_day)):
     month = month.capitalize()
     form = AppointmentForm
     print(time_options)
@@ -75,7 +82,7 @@ def create(request, year=2023, month="January", day = 1):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             for i in appointment_list:
-                if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"]:
+                if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"] and i.office_id == form.cleaned_data["office_id"]:
                     return HttpResponseRedirect('/calendar/make_appointment?duplicate=True')
             form.save()
             
@@ -86,8 +93,8 @@ def create(request, year=2023, month="January", day = 1):
             submitted = True
         if "duplicate" in request.GET:
             duplicate = True
-    appointments_all = Appointment.objects.all().filter(date = send_date)
-    appointments_month = Appointment.objects.all().filter(month = month_number, year = year)
+    appointments_all = Appointment.objects.all().filter(date = send_date, office_id = office_id)
+    appointments_month = Appointment.objects.all().filter(month = month_number, year = year, office_id = office_id)
 
     times = []
     times_len = len(TIME_LIST)
@@ -120,4 +127,6 @@ def create(request, year=2023, month="January", day = 1):
         "times_len": times_len,
         "filled": filled,
         "duplicate": duplicate,
+        "office_id":office_id,
+        "time_options":time_options,
         })

@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <p>
+    {{ time_options }}
     {% if duplicate %}
-
     <p class = "error" style = "color:red">Error: This timeslot is already taken due to a refresh error. Please go back and refresh your page.</p>
     <button id = "duplicate_btn" onclick = "history.back()">Back</a></button>
     {% else %}
@@ -35,6 +35,7 @@
         {{ form.day.as_hidden }}
         {{ form.month.as_hidden }}
         {{ form.year.as_hidden }}
+        {{ form.office_id.as_hidden }}
         {% for i in time_list %}
         {% if i in times %}
         <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
@@ -96,10 +97,12 @@
         var filled = {{ filled }}
         var none_left = "False"
         var last_day = 0
+        var office_id = parseInt({{office_id}})
         document.getElementById("id_date").value = full_date
         document.getElementById("id_day").value = day
         document.getElementById("id_month").value = month_number
-        document.getElementById("id_year").value = year    
+        document.getElementById("id_year").value = year
+        document.getElementById("id_office_id").value = office_id
         $("td:contains(" + CSS.escape(day) + "):first").addClass("selected")
 
         function cancel_days(){
@@ -133,7 +136,7 @@
             let day = e.target.innerHTML
             
             if (Number.isInteger(parseInt(day))){
-                window.location.replace("/calendar/calender/" + year + "/" + month + "/" + day + "/");
+                window.location.replace("/calendar/calender/"+ office_id + "/" + year + "/" + month + "/" + day + "/");
             }
         }
         //add classes to every number. That way we can add cursor hover property
@@ -176,7 +179,7 @@ months = {
                 }
 }
             //month
-            window.location.replace("/calendar/calender/" + year + "/" + month + "/");
+            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/");
         }
 
         function back(){
@@ -193,7 +196,7 @@ months = {
                 }
 }
             //month
-            window.location.replace("/calendar/calender/" + year + "/" + month + "/");
+            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/");
         }
 var old_id = "None";
 function time_set(time){
@@ -211,22 +214,22 @@ window.addEventListener('keydown', function (e) {
     if(e.keyCode == 37){
         //left
         if (day != 1){
-        window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) - 1) + "/");
+        window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) - 1) + "/");
         }
     }else if(e.keyCode == 39){
         if(day != last_day){
             //right
-            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) + 1) + "/");
+            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) + 1) + "/");
         }
     }else if(e.keyCode == 38){
         //up
         if(day > 7){
-            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) - 7) + "/");
+            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) - 7) + "/");
         }
     }else if(e.keyCode == 40){
         //down
         if(day < (last_day-6)){
-            window.location.replace("/calendar/calender/" + year + "/" + month + "/" + (parseInt(day) + 7) + "/");
+            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) + 7) + "/");
         }
     }else if(e.keyCode == 13){
         submit_form()
