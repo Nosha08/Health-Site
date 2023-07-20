@@ -7,6 +7,8 @@ from datetime import datetime
 from .models import Appointment
 from datetime import date
 from .tests import time_choices, time_choices1
+from medical.views import *
+
 def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 
@@ -15,7 +17,7 @@ def index(request):
 def create(request, year=2023, month="January", day = 1):
     month = month.capitalize()
     form = AppointmentForm
-
+    print(time_options)
 
     TIME_CHOICES = {
         '9:00': '9:00 AM',
