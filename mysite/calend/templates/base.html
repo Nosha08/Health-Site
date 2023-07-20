@@ -12,13 +12,15 @@
 <body>
 
     <div class="navbar">
-        <a href="/calendar">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-        {% if user.is_authenticated %}
-        <a href="/user/logout">Logout</a>
-        {% endif %}
+        <nav>
+            <a href="/calendar">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+            {% if user.is_authenticated %}
+            <a href="/user/logout">Logout</a>
+            {% endif %}
+        </nav>
     </div>
 
     {% block content %}

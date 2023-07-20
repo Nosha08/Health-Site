@@ -9,16 +9,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="three.r134.min.js"></script>
+    <script src="vanta.waves.min.js"></script>
 </head>
 <body>
-    <h1 class="center">Welcome to HealthTech!</h1>
-    <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
-    <h2>Search for a medical office near you!</h2>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="query" placeholder="Search..." />
-        <button type="submit">Search</button>
-      </form>
+
+    <div id="vanta-canvas"></div>
+
+
+    <script>
+    VANTA.WAVES({
+        el: "vanta-canvas",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        waveSpeed: 0.50
+    })
+
+    
+    </script>
+
+    <div class="center">
+        <h1>Welcome to HealthTech!</h1>
+        <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
+        <h2>Search for a medical office near you!</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="query" placeholder="Search..." />
+            <button type="submit">Search</button>
+        </form>
+    </div>
 
 {% endblock %}
 </body>
