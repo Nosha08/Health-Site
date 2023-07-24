@@ -1,5 +1,87 @@
-#animation-bg {
-  padding: 30px;
-  height: 100vh;
-  width: 100vw;
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+body {
+  margin: 0;
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+#animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.thx{
+  position: fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom: 15px;
+}
+nav{
+  width: 100%;
+  position: fixed;
+  top:50px;
+  text-align:center;
+}
+nav a{
+  font-family: 'Oswald', sans-serif;
+  font-weight:500;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:#16151b;
+  margin:0 15px;
+  font-size:36px;
+  letter-spacing:1px;
+  position:relative;
+  display:inline-block;
+}
+nav a:before{
+  content:'';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background:#16151b;
+  top:47%;
+  animation:out 0.2s cubic-bezier(1, 0, 0.58, 0.97) 1 both;
+}
+nav a:hover:before{
+  animation:in 0.2s cubic-bezier(1, 0, 0.58, 0.97) 1 both;
+
+}
+@keyframes in{
+  0%{
+    width: 0;
+    left:0;
+    right:auto;
   }
+  100%{
+    left:0;
+    right:auto;
+    width: 100%;
+  }
+}
+@keyframes out{
+  0%{
+    width:100%;
+    left: auto;
+    right: 0;
+  }
+  100%{
+    width: 0;
+    left: auto;
+    right: 0;
+  }
+}
+@keyframes show{
+  0%{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+}

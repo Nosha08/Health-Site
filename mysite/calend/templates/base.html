@@ -19,6 +19,9 @@
             <a href="#contact">Contact</a>
             {% if user.is_authenticated %}
             <a href="/user/logout">Logout</a>
+            {% else %}
+            <a href="/user/login">Login</a>
+            <a href="user/register">Sign Up</a>
             {% endif %}
         </nav>
     </div>
