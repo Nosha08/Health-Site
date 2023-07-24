@@ -11,24 +11,29 @@
 </head>
 <body>
 
-    <div class="navbar">
-        <nav>
-            <a href="/calendar">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-            {% if user.is_authenticated %}
-            <a href="/user/logout">Logout</a>
-            {% else %}
-            <a href="/user/login">Login</a>
-            <a href="user/register">Sign Up</a>
-            {% endif %}
-        </nav>
-    </div>
+    <div class="container">
+        <div class="higher">
+        <div class="navbar">
+            <nav>
+                <a href="/medical/home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+                {% if user.is_authenticated %}
+                <a href="/user/logout">Logout</a>
+                {% else %}
+                <a href="/user/login">Login</a>
+                <a href="/user/register">Sign Up</a>
+                {% endif %}
+            </nav>
+        </div>
+        </div>
+    
 
     {% block content %}
     
     {% endblock %}
+    </div>
 
 </body>
 </html>
