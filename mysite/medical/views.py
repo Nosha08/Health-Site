@@ -3,6 +3,8 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 from datetime import datetime
+from django.contrib.auth.models import User
+
 
 time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
@@ -34,6 +36,8 @@ def form(request):
 
 
 def home(request):
+    if request.user.is_authenticated:
+        username = request.user.username
     if request.method == 'POST':
         name1 = request.POST.get('query')
         print(name1)
@@ -44,7 +48,7 @@ def home(request):
                 print(x.id)
                 return redirect('/medical/results/{id}'.format(id=x.id))
                 
-    return render(request, 'home.html', {})
+    return render(request, 'home.html', {'username': username})
 
 
 def results(request, id):
