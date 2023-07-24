@@ -36,6 +36,8 @@ def form(request):
 
 
 def home(request):
+    error = ''
+    name1 = None
     if request.user.is_authenticated:
         username = request.user.username
     if request.method == 'POST':
@@ -46,9 +48,12 @@ def home(request):
             if x.name == name1:
                 print('Yes')
                 print(x.id)
+                error = ''
                 return redirect('/medical/results/{id}'.format(id=x.id))
+            else:
+                error = 'This office does not exist! Please try something else or create the page for it.'
                 
-    return render(request, 'home.html', {'username': username})
+    return render(request, 'home.html', {'username': username, 'error': error, 'name1': name1})
 
 
 def results(request, id):
