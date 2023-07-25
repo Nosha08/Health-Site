@@ -23,11 +23,15 @@
             <input type="text" name="query" placeholder="Search for a medical office..." class="search-input" />
             <button type="submit" class="search-button">Search</button>
         </form>
+
         {% if name1 %}
             <p class="alert-message1">{{ error }}</p>
         {% else %}
             <p class="message">{{ none }}</p>
         {% endif %}
+
+        <h2>Create a form <a href="/medical/form">here!</a></h2>
+
     </div>
 
 {% endblock %}

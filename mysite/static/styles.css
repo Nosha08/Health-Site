@@ -219,10 +219,42 @@ button a {
   font-size: 22px;
 }
 
-input[name="name"] {
-  /* Your custom styles here */
+input[name="name"],
+input[name="location"] {
   border: 2px solid #4ca3d1;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
+  font-family: 'PT Sans Narrow', sans-serif;
+  min-width: 400px;
+}
+
+input[name="open"],
+input[name="close"] {
+  border: 2px solid #4ca3d1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'PT Sans Narrow', sans-serif;
+  min-width: 100px;
+}
+
+input[name="description"] {
+  border: 2px solid #4ca3d1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'PT Sans Narrow', sans-serif;
+  min-width: 700px;
+}
+
+.container2 {
+  padding: 6px;
+  border-radius: 20px;
+  border: 12px solid #ffffff;
+  background-color: #5cc1fc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 100%;
+  max-height: 450px;
 }

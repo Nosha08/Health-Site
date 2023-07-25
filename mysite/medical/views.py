@@ -82,8 +82,8 @@ def results(request, id):
             else:
                 available_times_new.append(x)
                 am_list.append(x)
-        am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
 
+        am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
         pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
 
         time_options = am_strings + pm_strings
