@@ -5,6 +5,8 @@ body {
   margin: 0;
   font-family: 'PT Sans Narrow', sans-serif;
   font-weight: 400;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -123,40 +125,104 @@ nav a:hover:before {
 }
 
 
-form {
+.form1 {
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: 500px;
   margin: 0 auto;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
-input[type="text"] {
+.search-input {
   padding: 15px;
   border: 2px solid #4ca3d1;
   border-radius: 8px 0 0 8px;
   outline: none;
-  font-size: 18px;
+  font-size: 28px;
   width: 70%;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
-button[type="submit"] {
+.search-button {
   padding: 15px 30px;
   background-color: #4ca3d1;
-  border: none;
+  border: 2px solid #4ca3d1;
   border-radius: 0 8px 8px 0;
   color: #fff;
-  font-size: 18px;
+  font-size: 28px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
-button[type="submit"]:hover {
+.search-button:hover {
   background-color: #3b8cbd;
 }
 
-p {
+.message {
   font-size: 20px;
   margin-top: 20px;
   color: #16151b;
+}
+
+.container-card {
+  padding: 20px;
+  border-radius: 20px;
+  border: 12px solid #ffffff;
+  background-color: #5cc1fc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  min-height: 500px;
+}
+
+.title1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.content {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.book-button {
+  padding: 15px;
+  background-color: #4ca3d1;
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'PT Sans Narrow', sans-serif;
+  margin-top: 30%;
+}
+
+button a {
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+}
+
+.alert-message1 {
+  color: red;
+  font-size: 22px;
+}
+
+input[name="name"] {
+  /* Your custom styles here */
+  border: 2px solid #4ca3d1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
 }
