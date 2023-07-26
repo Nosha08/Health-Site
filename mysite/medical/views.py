@@ -56,6 +56,14 @@ def home(request):
     return render(request, 'home.html', {'username': username, 'error': error, 'name1': name1})
 
 
+available_times_new = []
+am_list = []
+pm_list = []
+""" am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
+pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
+time_options = am_strings + pm_strings """
+
+#print(time_options)
 def results(request, id):
     try:
         office = Office.objects.get(id=id)
@@ -83,14 +91,17 @@ def results(request, id):
                 available_times_new.append(x)
                 am_list.append(x)
 
+
         am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
         pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
-
         time_options = am_strings + pm_strings
+        print(time_options)
+        #time_options.clear()
+          
     except Office.DoesNotExist:
         messages.error(request, 'Office not found.')
         return redirect('form')
-    
+    print(time_options)
     return render(request, 'results.html', {'office': office, 'time_options': time_options})
 
 def database(request):
