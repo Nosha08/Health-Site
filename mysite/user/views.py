@@ -14,14 +14,14 @@ def login1(request):
             login(request, user)
             # Redirect to a success page.
             print('Yay')
-            return redirect('/calendar/make_appointment')
+            return redirect('/medical/home')
         else:
             messages.error(request, ('Error logging in!'))
             print('No')
             return redirect('/user/login')     
     else:
         # Return an 'invalid login' error message.
-        return render(request, 'login1.html', {})
+        return render(request, 'login2.html', {})
     
 
 def register(request):
@@ -34,7 +34,7 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ('Registration Successful!'))
-            return redirect('/calendar/make_appointment')
+            return redirect('/medical/home')
         
     else:
         form = UserCreationForm()

@@ -12,16 +12,16 @@
 </head>
 <body>
 
-{% if form.errors %}
-<p>There was an error with your form...</p>
-{% endif %}
+    {% if form.errors %}
+        <p>There was an error with your form...</p>
+    {% endif %}
 
     <h1>Registration System</h1>
 
     <form action="{% url 'register' %}" method=POST>
         {% csrf_token %}
 
-        {{ form }}
+        {{ form.as_p }}
 
         <input type="submit" value="Submit">
 

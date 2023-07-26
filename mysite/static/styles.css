@@ -296,3 +296,7 @@ input[name="description"] {
   max-height: 700px; 
   overflow-y: auto;
 }
+
+.hidden-form-element {
+  display: none;
+}

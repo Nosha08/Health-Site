@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
@@ -13,10 +14,11 @@ time_choices1 = [900, 930, 1000, 1030, 1100, 1130, 1200,
                  1230, 100, 130, 200, 230, 300, 330, 400,
                  430, 500, 530, 600, 630]
 
+@login_required(login_url='/register')
 def index(request):
     return render(request, 'index.html', {})
 
-
+@login_required
 def form(request):
     if request.method == 'POST':
         form = OfficeForm1(request.POST)
@@ -34,7 +36,7 @@ def form(request):
 
     return render(request, 'form.html', {'form': form})
 
-
+@login_required
 def home(request):
     error = ''
     name1 = None
@@ -55,7 +57,7 @@ def home(request):
                 
     return render(request, 'home.html', {'username': username, 'error': error, 'name1': name1})
 
-
+@login_required
 def results(request, id):
     try:
         office = Office.objects.get(id=id)
@@ -93,9 +95,11 @@ def results(request, id):
     
     return render(request, 'results.html', {'office': office, 'time_options': time_options})
 
+@login_required
 def database(request):
     offices = Office.objects.all()
     return render(request, 'database.html', {'offices': offices})
 
+@login_required
 def about(request):
     return render(request, 'about.html', {})
