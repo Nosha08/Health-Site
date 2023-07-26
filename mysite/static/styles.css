@@ -283,6 +283,7 @@ input[name="description"] {
   transition: background-color 0.2s ease;
   font-family: 'PT Sans Narrow', sans-serif;
   margin-top: 4%;
+  max-width: 200px;
 }
 
 .custom-form-label {
@@ -299,4 +300,55 @@ input[name="description"] {
 
 .hidden-form-element {
   display: none;
+}
+
+input {
+  border: 2px solid #4ca3d1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  font-family: 'PT Sans Narrow', sans-serif;
+  min-width: 400px;
+}
+
+.field-label {
+  font-size: 28px;
+}
+
+.lower {
+  margin-top: 50px;
+}
+
+.higher1 {
+  margin-bottom: -400px;
+}
+
+.submit-button2 {
+  padding: 15px;
+  min-width: 140px;
+  background-color: #4ca3d1;
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'PT Sans Narrow', sans-serif;
+  margin-top: 4%;
+}
+
+.form-field1 {
+  font-size: 20px;
+}
+
+.lower1 {
+  margin-top: 150px;
+}
+
+.lower2 {
+  margin-top: -450px;
+}
+
+.margin1 {
+  margin-top: 20px;
 }

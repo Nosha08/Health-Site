@@ -12,26 +12,46 @@
 </head>
 <body>
 
+    <div class="center">
+        <div class="lower">
     <h1>Login System</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <strong class="alert-message1">{{ message }}</strong>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="center-content">
+        <div class="lower2">
+            <form action="" method=POST>
+                {% csrf_token %}
+                <label class="field-label" for="exampleInputUsername1">Username:</label>
+                <br>
 
-    {% if messages %}
-        {% for message in messages %}
-            <strong>{{ message }}</strong>
-        {% endfor %}
-    {% endif %}
+                <div class="margin1"></div>
 
-    <form action="" method=POST>
-        {% csrf_token %}
+                <input class="form-field1" type="text" id="exampleInputUsername1" name="username">
+                <br>
 
-        <label for="exampleInputUsername1">Username</label>
-        <input type="text" id="exampleInputUsername1" name="username">
+                <div class="margin1"></div>
 
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" id="exampleInputPassword1" name="password">
+                <label class="field-label" for="exampleInputPassword1">Password:</label>
+                <br>
 
-        <input type="submit" value="Submit">
+                <div class="margin1"></div>
 
-    </form>
+                <input class="form-field1" type="password" id="exampleInputPassword1" name="password">
+
+                <div class="margin1"></div>
+
+                <br>
+                <div class="center">
+                    <input class="submit-button2" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
 
 
 </body>

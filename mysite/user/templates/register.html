@@ -12,21 +12,32 @@
 </head>
 <body>
 
-    {% if form.errors %}
-        <p>There was an error with your form...</p>
-    {% endif %}
+    <div class="center">
+        <div class="lower"> 
+        <h1>Registration System</h1>
 
-    <h1>Registration System</h1>
+        {% if form.errors %}
+            <strong><p class="alert-message1">There was an error with your form...</p></strong>
+        {% endif %}
+        </div> 
+    </div>  
 
-    <form action="{% url 'register' %}" method=POST>
-        {% csrf_token %}
+    <div class="center-content">
+        <form action="{% url 'register' %}" method=POST>
 
-        {{ form.as_p }}
-
-        <input type="submit" value="Submit">
-
-    </form>
-
+            {% csrf_token %}
+            <div class="higher1"></div>
+                {% for field in form %}
+                    <label class="field-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    <p class="form-field1">{{ field }}</p>
+                    <br>               
+                {% endfor %}
+                <div class="center">
+                    <input class="submit-button2" type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>
