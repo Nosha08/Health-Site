@@ -96,3 +96,6 @@ def results(request, id):
 def database(request):
     offices = Office.objects.all()
     return render(request, 'database.html', {'offices': offices})
+
+def about(request):
+    return render(request, 'about.html', {})
