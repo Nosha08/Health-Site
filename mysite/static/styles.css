@@ -210,6 +210,10 @@ nav a:hover:before {
   margin-top: 30%;
 }
 
+.book-button:hover {
+  background-color: #3b8cbd;
+}
+
 button a {
   text-decoration: none;
   color: inherit;
@@ -286,6 +290,10 @@ input[name="description"] {
   max-width: 200px;
 }
 
+.submit-button1:hover {
+  background-color: #3b8cbd;
+}
+
 .custom-form-label {
   font-size: 20px;
 }
@@ -335,6 +343,10 @@ input {
   transition: background-color 0.2s ease;
   font-family: 'PT Sans Narrow', sans-serif;
   margin-top: 4%;
+}
+
+.submit-button2:hover {
+  background-color: #3b8cbd;
 }
 
 .form-field1 {
