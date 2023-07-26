@@ -242,7 +242,7 @@ input[name="location"] {
   font-size: 16px;
   font-family: 'PT Sans Narrow', sans-serif;
   min-width: 400px;
-  margin-left: 21px;
+  margin-left: 20px;
 }
 
 input[name="open"],
