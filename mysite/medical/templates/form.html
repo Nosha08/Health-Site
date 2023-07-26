@@ -12,16 +12,18 @@
     <title>Document</title>
 </head>
 <body>
-    
-    <div class="center-content">
-        <div class="container2">
-            <form action="" method=POST>
-                {% csrf_token %}
+    <div class="custom-form-label">
+        <div class="center-content">
+            <div class="container2">
+                <form action="" method=POST>
+                    {% csrf_token %}
 
-                {{ form.as_p }}
-                
-                <input type="submit" value="Submit">
-            </form>
+                    {{ form.as_p }}
+                    <div class="center">
+                        <input type="submit" value="Submit" class="submit-button1">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
