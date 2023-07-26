@@ -16,10 +16,10 @@ def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 
 # def calendar(request,year,month,day = '1'):
-current_year = datetime.now().year
+current_year = datetime.datetime.now().year
 
-current_day = datetime.now().day
-today = datetime.now()
+current_day = datetime.datetime.now().day
+today = datetime.datetime.now()
 
 current_month = today.strftime("%B")
 
@@ -130,5 +130,5 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
         "filled": filled,
         "duplicate": duplicate,
         "office_id":office_id,
-        "time_options":time_options,
+        #"time_options":time_options,
         })
