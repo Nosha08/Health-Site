@@ -15,14 +15,11 @@ time_choices1 = [900, 930, 1000, 1030, 1100, 1130, 1200,
                  1230, 100, 130, 200, 230, 300, 330, 400,
                  430, 500, 530, 600, 630]
 
-def user_is_active(user):
-    return user.is_authenticated and user.is_active
-
-@login_required
+@login_required(login_url='/user/login')
 def index(request):
     return render(request, 'index.html', {})
 
-@login_required
+@login_required(login_url='/user/login')
 def form(request):
     if request.method == 'POST':
         form = OfficeForm1(request.POST)
@@ -40,7 +37,7 @@ def form(request):
 
     return render(request, 'form.html', {'form': form})
 
-@login_required
+@login_required(login_url='/user/login')
 def home(request):
     error = ''
     name1 = None
@@ -61,8 +58,9 @@ def home(request):
                 
     return render(request, 'home.html', {'username': username, 'error': error, 'name1': name1})
 
-@login_required
+@login_required(login_url='/user/login')
 def results(request, id):
+
     try:
         office = Office.objects.get(id=id)
         new_open = str(office.open).split(':')
@@ -97,13 +95,13 @@ def results(request, id):
         messages.error(request, 'Office not found.')
         return redirect('form')
     
-    return render(request, 'results.html', {'office': office, 'time_options': time_options})
+    return render(request, 'results.html', {'form': form, 'office': office, 'time_options': time_options})
 
-@login_required
+@login_required(login_url='/user/login')
 def database(request):
     offices = Office.objects.all()
     return render(request, 'database.html', {'offices': offices})
 
-@login_required
+@login_required(login_url='/user/login')
 def about(request):
     return render(request, 'about.html', {})

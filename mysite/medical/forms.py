@@ -14,3 +14,6 @@ class OfficeForm1(ModelForm):
             'open': ['%H:%M'],
             'close': ['%H:%M'],
         }
+
+class RatingForm(forms.Form):
+    stars = forms.ChoiceField(choices=[(5, '5'), (4, '4'), (3, '3'), (2, '2'), (1, '1')])
