@@ -20,6 +20,9 @@ class Office(models.Model):
     def get_absolute_url(self):
         return reverse('results', args=[str(self.id)])
     
+    def __str__(self):
+        return self.name
+    
 class Rating(models.Model):
     office_rating = models.ForeignKey(Office, on_delete=models.CASCADE, related_name='ratings_received')
     stars = models.IntegerField()

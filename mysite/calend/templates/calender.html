@@ -43,7 +43,7 @@
         {% if i in times %}
         <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
         {% else %}
-        <button type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
+        <button class="button1" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
         {% endif %}
         {% endfor %}
         <button class="submit-button3" type = "button" onclick = "submit_form()">Submit</button>
