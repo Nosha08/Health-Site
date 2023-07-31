@@ -364,3 +364,20 @@ input {
 .margin1 {
   margin-top: 20px;
 }
+
+.submit-button3 {
+  padding: 15px;
+  min-width: 140px;
+  background-color: #4ca3d1;
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.submit-button3:hover {
+  background-color: #3b8cbd;
+}

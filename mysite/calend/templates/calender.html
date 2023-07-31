@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +46,7 @@
         <button type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
         {% endif %}
         {% endfor %}
-        <button type = "button" onclick = "submit_form()">Submit</button>
+        <button class="submit-button3" type = "button" onclick = "submit_form()">Submit</button>
         <p id = "errors"></p>
     </form>
 
@@ -237,3 +241,5 @@ window.addEventListener('keydown', function (e) {
 
 </body>
 </html>
+
+{% endblock %}

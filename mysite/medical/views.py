@@ -7,7 +7,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from calend.views import *
 
+current_year = datetime.now().year
 
+current_day = datetime.now().day
+today = datetime.now()
+
+current_month = today.strftime("%B")
 
 time_choices = [0, 30, 100, 130, 200, 230, 300, 330, 400, 430,
                 500, 530, 600, 630, 700, 730, 800, 830,
@@ -98,10 +103,7 @@ def results(request, id):
 
         am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
         pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
-        time_options = am_strings + pm_strings
-        print(time_options)
-        #time_options.clear()
-          
+        time_options = am_strings + pm_strings          
 
         time_options = am_strings + pm_strings
     except Office.DoesNotExist:
@@ -118,4 +120,3 @@ def database(request):
 @login_required(login_url='/user/login')
 def about(request):
     return render(request, 'about.html', {})
-

@@ -6,9 +6,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from .models import *
 from datetime import date
-import datetime
 from medical.views import *
-import datetime 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
