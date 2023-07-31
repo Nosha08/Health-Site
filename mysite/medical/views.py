@@ -95,14 +95,19 @@ def results(request, id):
                 available_times_new.append(x)
                 am_list.append(x)
 
+
         am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
         pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
+        time_options = am_strings + pm_strings
+        print(time_options)
+        #time_options.clear()
+          
 
         time_options = am_strings + pm_strings
     except Office.DoesNotExist:
         messages.error(request, 'Office not found.')
         return redirect('form')
-    
+    print(time_options)
     return render(request, 'results.html', {'form': form, 'office': office, 'time_options': time_options})
 
 @login_required(login_url='/user/login')
@@ -113,3 +118,4 @@ def database(request):
 @login_required(login_url='/user/login')
 def about(request):
     return render(request, 'about.html', {})
+

@@ -3,10 +3,10 @@ from .forms import AppointmentForm
 from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
-from datetime import datetime, date
-from .models import Appointment
+from datetime import datetime
+from .models import *
 from datetime import date
-from .tests import time_choices, time_choices1
+import datetime
 from medical.views import *
 import datetime 
 
@@ -14,13 +14,15 @@ def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 
 # def calendar(request,year,month,day = '1'):
-current_month = datetime.datetime.now().month
-current_year = datetime.datetime.now().year
-current_day = datetime.datetime.now().day
+current_year = datetime.now().year
+
+current_day = datetime.now().day
+today = datetime.now()
+
+current_month = today.strftime("%B")
 
 print(current_month)
-
-def create(request, year=current_year, month=current_month, day=current_day):
+def create(request,office_id= 1, year=int(current_year), month=str(current_month), day = int(current_day)):
     month = month.capitalize()
     form = AppointmentForm
 
@@ -62,6 +64,42 @@ def create(request, year=current_year, month=current_month, day=current_day):
         "December":12
     }
 
+    available_times_new = []
+    am_list = []
+    pm_list = []
+
+    office = Office.objects.get(id=office_id)
+    new_open = str(office.open).split(':')
+    new_open.pop(2)
+    final_open = new_open[0] + new_open[1]
+    print(final_open)
+    new_close = str(office.close).split(':')
+    new_close.pop(2)
+    final_close = new_close[0] + new_close[1]
+    print(final_close)
+
+    available_times = []
+    for x in time_choices:
+        print(x)
+        if int(final_open) <= x <= int(final_close):
+            available_times.append(x)
+    
+    
+    for x in available_times:
+        if x > 1259:
+            available_times_new.append(x - 1200)
+            pm_list.append(x - 1200)
+        else:
+            available_times_new.append(x)
+            am_list.append(x)
+
+
+    am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
+    pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
+    time_options = am_strings + pm_strings
+    print(time_options)
+
+
     for i in months:
         if i == month:
             month_number = months[i]
@@ -80,22 +118,22 @@ def create(request, year=current_year, month=current_month, day=current_day):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             for i in appointment_list:
-                if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"]:
+                if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"] and i.office_id == form.cleaned_data["office_id"]:
                     return HttpResponseRedirect('/calendar/make_appointment?duplicate=True')
             form.save()
             
-            return HttpResponseRedirect('/calendar/make_appointment?submitted=True')
+            return HttpResponseRedirect(f'/calendar/make_appointment/{office_id}/?submitted=True')
     else:
         form = AppointmentForm
         if "submitted" in request.GET:
             submitted = True
         if "duplicate" in request.GET:
             duplicate = True
-    appointments_all = Appointment.objects.all().filter(date = send_date)
-    appointments_month = Appointment.objects.all().filter(month = month_number, year = year)
+    appointments_all = Appointment.objects.all().filter(date = send_date, office_id = office_id)
+    appointments_month = Appointment.objects.all().filter(month = month_number, year = year, office_id = office_id)
 
     times = []
-    times_len = len(TIME_LIST)
+    times_len = len(time_options)
     for objects in appointments_all:
         times.append(objects.time)
 
@@ -125,4 +163,6 @@ def create(request, year=current_year, month=current_month, day=current_day):
         "times_len": times_len,
         "filled": filled,
         "duplicate": duplicate,
+        "office_id":office_id,
+        "time_options":time_options,
         })
