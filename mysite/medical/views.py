@@ -3,7 +3,6 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 from datetime import datetime
-
 time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
                 1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930]
@@ -39,13 +38,19 @@ def home(request):
         name1 = request.POST.get('query')
         print(name1)
         offices = Office.objects.all()
+        office_names = []
+        for i in offices:
+            office_names.append(i)
         for x in offices:
             if x.name == name1:
                 print('Yes')
                 print(x.id)
                 return redirect('/medical/results/{id}'.format(id=x.id))
-                
-    return render(request, 'home.html', {})
+    offices = Office.objects.all()
+    office_names = []
+    for i in offices:
+        office_names.append(i.name)   
+    return render(request, 'home.html', {"office_names":office_names})
 
 
 available_times_new = []
