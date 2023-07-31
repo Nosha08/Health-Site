@@ -7,7 +7,6 @@
     <title>Document</title>
 </head>
 <p>
-    {{ time_options }}
     {% if duplicate %}
     <p class = "error" style = "color:red">Error: This timeslot is already taken due to a refresh error. Please go back and refresh your page.</p>
     <button id = "duplicate_btn" onclick = "history.back()">Back</a></button>
@@ -36,7 +35,7 @@
         {{ form.month.as_hidden }}
         {{ form.year.as_hidden }}
         {{ form.office_id.as_hidden }}
-        {% for i in time_list %}
+        {% for i in time_options %}
         {% if i in times %}
         <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
         {% else %}
@@ -48,7 +47,6 @@
     </form>
 
     {% endif %}
-
 
     <style>
         td{

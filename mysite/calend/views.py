@@ -24,7 +24,6 @@ print(current_month)
 def create(request,office_id= 1, year=int(current_year), month=str(current_month), day = int(current_day)):
     month = month.capitalize()
     form = AppointmentForm
-    print(time_options)
 
     TIME_CHOICES = {
         '9:00': '9:00 AM',
@@ -64,6 +63,42 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
         "December":12
     }
 
+    available_times_new = []
+    am_list = []
+    pm_list = []
+
+    office = Office.objects.get(id=office_id)
+    new_open = str(office.open).split(':')
+    new_open.pop(2)
+    final_open = new_open[0] + new_open[1]
+    print(final_open)
+    new_close = str(office.close).split(':')
+    new_close.pop(2)
+    final_close = new_close[0] + new_close[1]
+    print(final_close)
+
+    available_times = []
+    for x in time_choices:
+        print(x)
+        if int(final_open) <= x <= int(final_close):
+            available_times.append(x)
+    
+    
+    for x in available_times:
+        if x > 1259:
+            available_times_new.append(x - 1200)
+            pm_list.append(x - 1200)
+        else:
+            available_times_new.append(x)
+            am_list.append(x)
+
+
+    am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
+    pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
+    time_options = am_strings + pm_strings
+    print(time_options)
+
+
     for i in months:
         if i == month:
             month_number = months[i]
@@ -86,7 +121,7 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
                     return HttpResponseRedirect('/calendar/make_appointment?duplicate=True')
             form.save()
             
-            return HttpResponseRedirect('/calendar/make_appointment?submitted=True')
+            return HttpResponseRedirect(f'/calendar/make_appointment/{office_id}/?submitted=True')
     else:
         form = AppointmentForm
         if "submitted" in request.GET:
@@ -97,7 +132,7 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
     appointments_month = Appointment.objects.all().filter(month = month_number, year = year, office_id = office_id)
 
     times = []
-    times_len = len(TIME_LIST)
+    times_len = len(time_options)
     for objects in appointments_all:
         times.append(objects.time)
 
