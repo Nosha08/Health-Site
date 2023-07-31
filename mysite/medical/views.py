@@ -17,6 +17,7 @@ current_month = today.strftime("%B")
 time_choices = [0, 30, 100, 130, 200, 230, 300, 330, 400, 430,
                 500, 530, 600, 630, 700, 730, 800, 830,
                 900, 930, 1000, 1030, 1100, 1130, 1200, 
+time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
                 1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930,
                 2000, 2030, 2100, 2130, 2200, 2230, 2300, 2330,
@@ -60,18 +61,30 @@ def home(request):
         name1 = request.POST.get('query')
         print(name1)
         offices = Office.objects.all()
+        office_names = []
+        for i in offices:
+            office_names.append(i)
         for x in offices:
             if x.name == name1:
                 print('Yes')
                 print(x.id)
                 error = ''
                 return redirect('/medical/results/{id}'.format(id=x.id))
-            else:
-                error = 'This office does not exist! Please try something else or create the page for it.'
-                
-    return render(request, 'home.html', {'username': username, 'error': error, 'name1': name1})
+    offices = Office.objects.all()
+    office_names = []
+    for i in offices:
+        office_names.append(i.name)   
+    return render(request, 'home.html', {"office_names":office_names})
 
-@login_required(login_url='/user/login')
+
+available_times_new = []
+am_list = []
+pm_list = []
+""" am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
+pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
+time_options = am_strings + pm_strings """
+
+#print(time_options)
 def results(request, id):
 
     try:
