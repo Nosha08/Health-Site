@@ -18,14 +18,14 @@
             <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
             <h2>Search for a medical office near you!</h2>
         </div>
-        <div class="lower1">
-          <form action="" method="POST" autocomplete="off">
+        </div>
+          <form class="form1" action="" method="POST" autocomplete="off">
             {% csrf_token %}
             <div class="autocomplete" style="width:300px;">
-                <input id="myInput" type="text" name="query" placeholder="Search...">
-              </div>
-            <input type="submit" value = "Submit">
-        </div>
+              <input id="myInput" type="text" name="query" placeholder="Search...">
+            </div>
+            <input type="submit">
+            
 
         {% if name1 %}
             <p class="alert-message1">{{ error }}</p>
@@ -33,11 +33,11 @@
             <p class="message">{{ none }}</p>
         {% endif %}
 
-        <h2>Office creation form <a href="/medical/form">here!</a></h2>
+        <!--<h2>Office creation form <a href="/medical/form">here!</a></h2>-->
 
-    </div>
 
       </form>
+
       <script>
         function autocomplete(inp, arr) {
           /*the autocomplete function takes two arguments,
@@ -57,9 +57,11 @@
               /*append the DIV element as a child of the autocomplete container:*/
               this.parentNode.appendChild(a);
               /*for each item in the array...*/
+              var max = 0
               for (i = 0; i < arr.length; i++) {
                 /*check if the item starts with the same letters as the text field value:*/
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && max < 4) {
+                  max++;
                   /*create a DIV element for each matching element:*/
                   b = document.createElement("DIV");
                   /*make the matching letters bold:*/

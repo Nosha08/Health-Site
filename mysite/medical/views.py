@@ -3,6 +3,8 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 from datetime import datetime
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
 time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
                 1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930,
@@ -63,7 +65,7 @@ def home(request):
     office_names = []
     for i in offices:
         office_names.append(i.name)   
-    return render(request, 'home.html', {"office_names":office_names})
+    return render(request, 'home.html', {"office_names":office_names, "username":username})
 
 @login_required(login_url='/user/login')
 def results(request, id):
