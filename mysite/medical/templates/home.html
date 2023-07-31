@@ -19,10 +19,10 @@
             <h2>Search for a medical office near you!</h2>
         </div>
         <div class="lower1">
-            <form action="" method="POST" class="form1">
+            <form class="form1" action="" method="POST">
                 {% csrf_token %}
-                <input type="text" name="query" placeholder="Search for a medical office..." class="search-input" />
-                <button type="submit" class="search-button">Search</button>
+                <input class="search-input" type="text" name="query" placeholder="Search for a medical office..."/>
+                <button class="search-button" type="submit">Search</button>
             </form>
         </div>
 

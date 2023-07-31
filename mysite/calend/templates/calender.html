@@ -21,16 +21,16 @@
 
     {% else %}
     <center>
-    <h1>Hello. Events for {{ month }} {{ year }}</h1>
     <div id = "calender">
-        <button onclick = "back()">Back</button>
+        <button class="arrow" onclick = "back()">Back</button>
         <button onclick = "next()">Next</button>
-    {{ cal|safe }}
+    <div class="box calendar">
+        {{ cal|safe }}
+    </div>
     </div>
     </center>
 
 
-    <h1>Make an Appointment</h1>
     <form id = "appointment_form" action = "" method = POST>
         {% csrf_token %}
         {{ form.date.as_hidden }}
@@ -40,11 +40,11 @@
         {{ form.year.as_hidden }}
         {{ form.office_id.as_hidden }}
         {% for i in time_options %}
-        {% if i in times %}
-        <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
-        {% else %}
-        <button class="button1" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
-        {% endif %}
+            {% if i in times %}
+                <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
+            {% else %}
+                <button class="button1" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
+            {% endif %}
         {% endfor %}
         <button class="submit-button3" type = "button" onclick = "submit_form()">Submit</button>
         <p id = "errors"></p>
@@ -53,38 +53,165 @@
     {% endif %}
 
     <style>
-        td{
-            padding:28px
+
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+
+        :root {
+            --calendar-bg-color: #262829;
+            --calendar-font-color: #FFF;
+            --weekdays-border-bottom-color: #404040;
+            --calendar-date-hover-color: #505050;
+            --calendar-current-date-color: #1b1f21;
+            --calendar-today-color: linear-gradient(to bottom, #03a9f4, #2196f3);
+            --calendar-today-innerborder-color: transparent;
+            --calendar-nextprev-bg-color: transparent;
+            --next-prev-arrow-color : #FFF;
+            --calendar-border-radius: 16px;
+            --calendar-prevnext-date-color: #484848
         }
-        .red{
-            color:red
+
+        * {
+            padding: 0;
+            margin: 0;
         }
-        .Calender-td:hover{
-            cursor:pointer
+
+        .calendar {
+            font-family: 'IBM Plex Sans', sans-serif;
+            position: relative;
+            max-width: 768px; /*change as per your design need */
+            min-width: 320px;
+            background: var(--calendar-bg-color);
+            color: var(--calendar-font-color);
+            margin: 20px auto;
+            box-sizing: border-box;
+            overflow: hidden;
+            font-weight: normal;
+            border-radius: var(--calendar-border-radius);
         }
-        table, .Calender-td{
-            border: 2px solid black;
-            border-collapse: collapse
+
+        .calendar-inner {
+            padding: 10px 10px;
         }
-        .selected{
-            background-color: darkslategrey;
-            color:white;
-            font-weight: bold;
+
+        .calendar .calendar-inner .calendar-body {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
         }
-        #errors{
-            color:red;
+
+        .calendar .calendar-inner .calendar-body div {
+            padding: 4px;
+            min-height: 30px;
+            line-height: 30px;
+            border: 1px solid transparent;
+            margin: 10px 2px 0px;
         }
-        .filled{
-            background-color: red;
-            color:white
+
+        .calendar .calendar-inner .calendar-body div:nth-child(-n+7) {
+            border: 1px solid transparent;
+            border-bottom: 1px solid var(--weekdays-border-bottom-color);
         }
-        .selected_time{
-            background-color: cornflowerblue !important;
+
+        .calendar .calendar-inner .calendar-body div:nth-child(-n+7):hover {
+            border: 1px solid transparent;
+            border-bottom: 1px solid var(--weekdays-border-bottom-color);
         }
-        .filled.selected{
-            background-color: rgb(255, 136, 0);
-            color:white;
-            font-weight: bold;
+
+        .calendar .calendar-inner .calendar-body div>a {
+            color: var(--calendar-font-color);
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        .calendar .calendar-inner .calendar-body div:hover {
+            border: 1px solid var(--calendar-date-hover-color);
+            border-radius: 4px;
+        }
+
+        .calendar .calendar-inner .calendar-body div.empty-dates:hover {
+            border: 1px solid transparent;
+        }
+
+        .calendar .calendar-inner .calendar-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .calendar .calendar-inner .calendar-today-date {
+            display: grid;
+            text-align: center;
+            cursor: pointer;
+            margin: 3px 0px;
+            background: var(--calendar-current-date-color);
+            padding: 8px 0px;
+            border-radius: 10px;
+            width: 80%;
+            margin: auto;
+        }
+
+        .calendar .calendar-inner .calendar-controls .calendar-year-month {
+            display: flex;
+            min-width: 100px;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .calendar .calendar-inner .calendar-controls .calendar-next {
+            text-align: right;
+        }
+
+        .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-year-label,
+        .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-month-label {
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .calendar .calendar-inner .calendar-body .calendar-today {
+            background: var(--calendar-today-color);
+            border-radius: 4px;
+        }
+
+        .calendar .calendar-inner .calendar-body .calendar-today:hover {
+            border: 1px solid transparent;
+        }
+
+        .calendar .calendar-inner .calendar-body .calendar-today a {
+            outline: 2px solid var(--calendar-today-innerborder-color);
+        }
+
+        .calendar .calendar-inner .calendar-controls .calendar-next a,
+        .calendar .calendar-inner .calendar-controls .calendar-prev a {
+            color: var(--calendar-font-color);
+            font-family: arial, consolas, sans-serif;
+            font-size: 26px;
+            text-decoration: none;
+            padding: 4px 12px;
+            display: inline-block;
+            background: var(--calendar-nextprev-bg-color);
+            margin: 10px 0 10px 0;
+        }
+
+        .calendar .calendar-inner .calendar-controls .calendar-next a svg,
+        .calendar .calendar-inner .calendar-controls .calendar-prev a svg {
+            height: 20px;
+            width: 20px;
+        }
+
+        .calendar .calendar-inner .calendar-controls .calendar-next a svg path,
+        .calendar .calendar-inner .calendar-controls .calendar-prev a svg path{
+            fill: var(--next-prev-arrow-color);
+        }
+
+        .calendar .calendar-inner .calendar-body .prev-dates,
+        .calendar .calendar-inner .calendar-body .next-dates {
+            color: var(--calendar-prevnext-date-color);
+        }
+
+        .calendar .calendar-inner .calendar-body .prev-dates:hover,
+        .calendar .calendar-inner .calendar-body .next-dates:hover {
+        border: 1px solid transparent;
+        pointer-events: none;
         }
     </style>
 {% endif %}

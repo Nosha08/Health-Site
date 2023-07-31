@@ -16,8 +16,6 @@ current_month = today.strftime("%B")
 
 time_choices = [0, 30, 100, 130, 200, 230, 300, 330, 400, 430,
                 500, 530, 600, 630, 700, 730, 800, 830,
-                900, 930, 1000, 1030, 1100, 1130, 1200, 
-time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
                 1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930,
                 2000, 2030, 2100, 2130, 2200, 2230, 2300, 2330,
@@ -74,7 +72,7 @@ def home(request):
     office_names = []
     for i in offices:
         office_names.append(i.name)   
-    return render(request, 'home.html', {"office_names":office_names})
+    return render(request, 'home.html', {"office_names": office_names, 'username': username})
 
 
 available_times_new = []
