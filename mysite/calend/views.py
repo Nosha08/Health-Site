@@ -13,14 +13,13 @@ def index(request):
 
 # def calendar(request,year,month,day = '1'):
 current_year = datetime.now().year
-
 current_day = datetime.now().day
 today = datetime.now()
 
 current_month = today.strftime("%B")
 
 print(current_month)
-def create(request,office_id= 1, year=int(current_year), month=str(current_month), day = int(current_day)):
+def create(request,office_id= 1, year=int(current_year), month=str(current_month), day = 1):
     month = month.capitalize()
     form = AppointmentForm
 
@@ -105,8 +104,6 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
 
     now = datetime.now()
     current_year = now.year
-
-
     appointment_list = Appointment.objects.all()
     send_date = date(int(year), int(month_number), int(day))
 
