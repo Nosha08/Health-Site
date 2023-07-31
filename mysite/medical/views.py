@@ -5,15 +5,23 @@ from .forms import *
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
+from calend.views import *
 
 
 
-time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
+time_choices = [0, 30, 100, 130, 200, 230, 300, 330, 400, 430,
+                500, 530, 600, 630, 700, 730, 800, 830,
+                900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
-                1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930]
-time_choices1 = [900, 930, 1000, 1030, 1100, 1130, 1200, 
-                 1230, 100, 130, 200, 230, 300, 330, 400,
-                 430, 500, 530, 600, 630]
+                1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930,
+                2000, 2030, 2100, 2130, 2200, 2230, 2300, 2330,
+                2400, 2430]
+time_choices1 = [1200, 1230, 100, 130, 200, 230, 300, 330,
+                400, 430, 500, 530, 600, 630, 700, 730, 800,
+                830, 900, 930, 1000, 1030, 1100, 1130, 1200, 
+                1230, 100, 130, 200, 230, 300, 330, 400,
+                430, 500, 530, 600, 630, 700, 730, 800, 830,
+                900, 930, 1000, 1030, 1100, 1130]
 
 @login_required(login_url='/user/login')
 def index(request):
@@ -31,7 +39,7 @@ def form(request):
             description = form.cleaned_data['description']
             office = form.save()
 
-            return redirect('/medical/home', id=office.id) 
+            return redirect('/medical/results/{id}'.format(id=office.id), id=office.id) 
     else:
         form = OfficeForm1()
 
@@ -100,7 +108,7 @@ def results(request, id):
 @login_required(login_url='/user/login')
 def database(request):
     offices = Office.objects.all()
-    return render(request, 'database.html', {'offices': offices})
+    return render(request, 'database.html', {'offices': offices, 'current_year': current_year, 'current_month': current_month, 'current_day': current_day})
 
 @login_required(login_url='/user/login')
 def about(request):
