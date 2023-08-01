@@ -22,8 +22,8 @@
     {% else %}
     <center>
     <div id = "calender">
-        <button class="arrow" onclick = "back()">Back</button>
-        <button onclick = "next()">Next</button>
+        <button class="button1" onclick = "back()">Back</button>
+        <button class="button1" onclick = "next()">Next</button>
     <div class="box calendar">
         {{ cal|safe }}
     </div>
@@ -40,21 +40,31 @@
         {{ form.office_id.as_hidden }}
         {% for i in time_options %}
             {% if i in times %}
-                <button class = "booked_time" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
+                <button class = "button2" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
             {% else %}
                 <button class="button1" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
             {% endif %}
         {% endfor %}
+        <br>
         <button class="submit-button3" type = "button" onclick = "submit_form()">Submit</button>
         <p id = "errors"></p>
     </form>
-</center>
+
+    
+
     {% endif %}
+
+    {% if form.errors  %}
+        {{ error }}
+    {% endif %}
+
+</center>
+
 
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
-
+        
         :root {
             --calendar-bg-color: #262829;
             --calendar-font-color: #FFF;
@@ -69,10 +79,11 @@
             --calendar-prevnext-date-color: #484848
         }
 
-        * {
-            padding: 20px;
-            margin: 0;
-            margin-top: -28px;
+        .error {
+            color: rgb(152, 181, 235);
+            font-size: 24px;
+            margin-top: 10px;
+            font-weight: bolder;
         }
 
         .calendar {
@@ -82,15 +93,15 @@
             min-width: 320px;
             background: var(--calendar-bg-color);
             color: var(--calendar-font-color);
-            margin: 20px auto;
             box-sizing: border-box;
             overflow: hidden;
             font-weight: normal;
             border-radius: var(--calendar-border-radius);
+            padding: 100px;
         }
 
         .calendar-inner {
-            padding: 10px 10px;
+            padding: 20px 20px;
         }
 
         .calendar .calendar-inner .calendar-body {
@@ -100,7 +111,7 @@
         }
 
         .calendar .calendar-inner .calendar-body div {
-            padding: 4px;
+            padding: 400px;
             min-height: 30px;
             line-height: 30px;
             border: 1px solid transparent;
@@ -210,13 +221,21 @@
 
         .calendar .calendar-inner .calendar-body .prev-dates:hover,
         .calendar .calendar-inner .calendar-body .next-dates:hover {
-        border: 1px solid transparent;
-        pointer-events: none;
+            border: 1px solid transparent;
+            pointer-events: none;
         }
 
         .selected-day {
-        color: green;
-        font-weight: bolder;
+            color: green;
+            font-weight: bolder;
+        }
+
+        .no-slots {
+            color: red;
+        }
+
+        .past-day {
+            color: red;
         }
     </style>
 {% endif %}
@@ -276,6 +295,8 @@
         //add classes to every number. That way we can add cursor hover property
         for(i=0; i<32; i++){
             $("td:contains(" + CSS.escape(i) + ")").addClass("Calender-td")
+            $("td:contains(" + CSS.escape(i) + ")").style.padding='20px'
+
 
         }
 //$('table').on('click', 'td', fetch_data())
@@ -372,7 +393,6 @@ window.addEventListener('keydown', function (e) {
 
 function fetch_data(e) {
         let day = e.target.innerHTML;
-
         if (Number.isInteger(parseInt(day))) {
             // Remove the "selected-day" class from all elements with class "Calender-td"
             let calender_td = document.getElementsByClassName("Calender-td");
@@ -392,7 +412,8 @@ function fetch_data(e) {
         }
     }
 
-    function setSelectedDayGreen() {
+    // Call the function when the page loads to set the selected day if it's available in localStorage
+    window.addEventListener("load", function () {
         let selectedDay = localStorage.getItem("selectedDay");
         if (selectedDay) {
             let calender_td = document.getElementsByClassName("Calender-td");
@@ -403,11 +424,149 @@ function fetch_data(e) {
                 }
             }
         }
+    });
+
+    // ... (existing code) ...
+
+    function selectDay(dayNumber) {
+        let calender_td = document.getElementsByClassName("Calender-td");
+        for (let i = 0; i < calender_td.length; i++) {
+            if (calender_td[i].innerHTML === dayNumber.toString()) {
+                calender_td[i].classList.add("selected-day");
+            } else {
+                calender_td[i].classList.remove("selected-day");
+            }
+        }
     }
 
-    // Call the function when the page loads
-    window.addEventListener("load", setSelectedDayGreen);
+    window.addEventListener("keydown", function (e) {
+        if (e.keyCode === 37) {
+            // Left arrow key
+            let prevDay = parseInt(localStorage.getItem("selectedDay")) - 1;
+            if (prevDay >= 1) {
+                selectDay(prevDay);
+                localStorage.setItem("selectedDay", prevDay);
+                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+            }
+        } else if (e.keyCode === 39) {
+            // Right arrow key
+            let nextDay = parseInt(localStorage.getItem("selectedDay")) + 1;
+            if (nextDay <= last_day) {
+                selectDay(nextDay);
+                localStorage.setItem("selectedDay", nextDay);
+                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+            }
+        } else if (e.keyCode === 38) {
+            // Up arrow key
+            let prevWeekDay = parseInt(localStorage.getItem("selectedDay")) - 7;
+            if (prevWeekDay >= 1) {
+                selectDay(prevWeekDay);
+                localStorage.setItem("selectedDay", prevWeekDay);
+                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+            }
+        } else if (e.keyCode === 40) {
+            // Down arrow key
+            let nextWeekDay = parseInt(localStorage.getItem("selectedDay")) + 7;
+            if (nextWeekDay <= last_day) {
+                selectDay(nextWeekDay);
+                localStorage.setItem("selectedDay", nextWeekDay);
+                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+            }
+        }
+    });
 
+    function toggleButtonState(button) {
+  button.classList.toggle("active");
+}
+
+function submit_form() {
+  const selectedTime = document.getElementById("id_time").value;
+  const errorsElement = document.getElementById("errors");
+
+  if (selectedTime) {
+    errorsElement.textContent = ""; // Clear any previous error message
+    document.getElementById("appointment_form").submit();
+    document.getElementById("id_month").value = month;
+    document.getElementById("id_year").value = year;
+    document.getElementById("id_day").value = day;
+  } else {
+    errorsElement.textContent = "Please select a time...";
+    errorsElement.classList.add("error");
+  }
+}
+
+function cancel_days() {
+    const errorsElement = document.getElementById("errors");
+    for (i = 0; i < filled.length; i++) {
+      if (filled[i] >= times_len) {
+        $("td:contains(" + CSS.escape(i) + "):first").addClass("filled");
+        if (day == i) {
+          none_left = "True";
+          // If all time slots are taken for this day, add the "no-slots" class to the corresponding td element
+          $("td:contains(" + CSS.escape(i) + "):first").addClass("no-slots");
+          errorsElement.textContent = "Please select a day with open time slots...";
+          errorsElement.classList.add("error");
+        }
+      }
+      // If all time slots are taken for a day, add the "no-slots" class to the corresponding td element
+      if (filled[i] >= times_len) {
+        $("td:contains(" + CSS.escape(i) + "):first").addClass("no-slots");
+      }
+    }
+
+    // Add the "past-day" class to days before today's date
+    let today = new Date().getDate();
+    $("td:lt(" + (today - 1) + ")").addClass("past-day");
+  }
+
+  
+    // ... (existing code) ...
+
+    // Function to check if a date is in the past
+    function isPastDay(year, month, day) {
+        const today = new Date();
+        const errorsElement = document.getElementById("errors");
+        const inputDate = new Date(year, month - 1, day); // Note: JavaScript months are 0-indexed (0-11)
+        return inputDate < today;
+    }
+
+    // Function to apply styles to the calendar days
+    function applyCalendarStyles() {
+        const errorsElement = document.getElementById("errors");
+        const calender_td = document.getElementsByClassName("Calender-td");
+        for (let i = 0; i < calender_td.length; i++) {
+            const dayNumber = parseInt(calender_td[i].innerHTML);
+            if (isNaN(dayNumber)) {
+                continue; // Skip non-number elements
+            }
+
+            if (dayNumber === day) {
+                calender_td[i].classList.add("selected-day");
+            } else {
+                calender_td[i].classList.remove("selected-day");
+            }
+
+            // Check if the day is in the past and add the "past-day" class
+            const yearNumber = parseInt(year);
+            const monthNumber = parseInt(months[month]);
+            if (isPastDay(yearNumber, monthNumber, dayNumber)) {
+                calender_td[i].classList.add("past-day");
+                errorsElement.textContent = "Please do not select past days...";
+          errorsElement.classList.add("error");
+            } else {
+                calender_td[i].classList.remove("past-day");
+            }
+        }
+    }
+
+    // Call the function when the page loads to set the selected day if it's available in localStorage
+    window.addEventListener("load", function () {
+        const selectedDay = localStorage.getItem("selectedDay");
+        if (selectedDay) {
+            selectDay(parseInt(selectedDay));
+        }
+        applyCalendarStyles(); // Apply styles when the page loads
+    });
     </script>
 
 </body>
