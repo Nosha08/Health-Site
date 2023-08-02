@@ -22,9 +22,9 @@
     {% else %}
     <center>
     <div id = "calender">
-        <button class="button1" onclick = "back()">Back</button>
-        <button class="button1" onclick = "next()">Next</button>
     <div class="box calendar">
+        <button class="button1 higher" onclick = "back()">Back</button>
+        <button class="button1 higher" onclick = "next()">Next</button>
         {{ cal|safe }}
     </div>
     </div>
@@ -40,9 +40,9 @@
         {{ form.office_id.as_hidden }}
         {% for i in time_options %}
             {% if i in times %}
-                <button class = "button2" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
+                <button class="button2" id="#buttonDis" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
             {% else %}
-                <button class="button1" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
+                <button class="button1" id="#buttonNorm" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
             {% endif %}
         {% endfor %}
         <br>
@@ -62,6 +62,12 @@
 
 
     <style>
+        .error {
+            color: rgb(152, 181, 235);
+            font-size: 24px;
+            margin-top: 10px;
+            font-weight: bolder;
+        }
 
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
         
@@ -77,13 +83,6 @@
             --next-prev-arrow-color : #FFF;
             --calendar-border-radius: 16px;
             --calendar-prevnext-date-color: #484848
-        }
-
-        .error {
-            color: rgb(152, 181, 235);
-            font-size: 24px;
-            margin-top: 10px;
-            font-weight: bolder;
         }
 
         .calendar {
@@ -232,14 +231,31 @@
 
         .no-slots {
             color: red;
+            font-weight: bolder;
         }
 
         .past-day {
             color: red;
+            font-weight: bolder;
         }
+
+        td {
+            padding: 30px;
+            margin: 10px;
+        }
+
+        #buttonNorm {
+            margin: 5px;
+        }
+
+        #buttonDis {
+            margin: 5px;
+        }
+
     </style>
 {% endif %}
     <script>
+        
         var calender = document.getElementById("calender")
         var month = "{{ month }}"
         var year = parseInt("{{ year }}")
@@ -294,279 +310,324 @@
         }
         //add classes to every number. That way we can add cursor hover property
         for(i=0; i<32; i++){
-            $("td:contains(" + CSS.escape(i) + ")").addClass("Calender-td")
-            $("td:contains(" + CSS.escape(i) + ")").style.padding='20px'
+            $("td:contains(" + CSS.escape(i) + ")").addClass("calender-td")
 
 
         }
-//$('table').on('click', 'td', fetch_data())
-calender.addEventListener('click', fetch_data, false)
-months = {
-        "January":1,
-        "February":2,
-        "March":3,
-        "April":4,
-        "May":5,
-        "June":6,
-        "July":7,
-        "August":8,
-        "September":9,
-        "October":10,
-        "November":11,
-        "December":12
-    }
-
-        var calender_td = document.getElementsByClassName("Calender-td")
-        last_day = calender_td[(calender_td.length-1)].innerHTML
-
-
-        function next(){
-            if(month_number == 12){
-                year = parseInt(year)
-                month_number = 1;
-                year++;
-            } else {
-                month_number++;
+        //$('table').on('click', 'td', fetch_data())
+        calender.addEventListener('click', fetch_data, false)
+        months = {
+                "January":1,
+                "February":2,
+                "March":3,
+                "April":4,
+                "May":5,
+                "June":6,
+                "July":7,
+                "August":8,
+                "September":9,
+                "October":10,
+                "November":11,
+                "December":12
             }
-            for (val of Object.keys(months)) {
-                if(months[val] == month_number){
-                    month = val
+
+                var calender_td = document.getElementsByClassName("calender-td")
+                last_day = calender_td[(calender_td.length-1)].innerHTML
+
+
+                function next(){
+                    months = {
+                        "January":1,
+                        "February":2,
+                        "March":3,
+                        "April":4,
+                        "May":5,
+                        "June":6,
+                        "July":7,
+                        "August":8,
+                        "September":9,
+                        "October":10,
+                        "November":11,
+                        "December":12
+                    }
+                    if(month_number == 12){
+                        year = parseInt(year)
+                        month_number = 1;
+                        year++;
+                    } else {
+                        month_number++;
+                    }
+                    for (val of Object.keys(months)) {
+                        if(months[val] == month_number){
+                            month = val
+                        }
+                    }
+                    //month
+                    window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/");
                 }
-}
-            //month
-            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/");
-        }
 
-        function back(){
-            if(month_number == 1){
-                year = parseInt(year)
-                month_number = 12;
-                year--;
-            } else {
-                month_number--;
-            }
-            for (val of Object.keys(months)) {
-                if(months[val] == month_number){
-                    month = val
+                function back(){
+                    months = {
+                        "January":1,
+                        "February":2,
+                        "March":3,
+                        "April":4,
+                        "May":5,
+                        "June":6,
+                        "July":7,
+                        "August":8,
+                        "September":9,
+                        "October":10,
+                        "November":11,
+                        "December":12
+                    }
+                    if(month_number == 1){
+                        year = parseInt(year)
+                        month_number = 12;
+                        year--;
+                    } else {
+                        month_number--;
+                    }
+                    for (val of Object.keys(months)) {
+                        if(months[val] == month_number){
+                            month = val
+                        }
+        }
+                    //month
+                    window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/");
                 }
-}
-            //month
-            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/");
-        }
-var old_id = "None";
-function time_set(time){
-    document.getElementById("id_time").value = time
+        var old_id = "None";
+        function time_set(time){
+            document.getElementById("id_time").value = time
 
-    if (old_id != "None"){
-        //alert(old_id)
-        document.getElementById(old_id).classList.remove("selected_time")
-    }
-    old_id = time
-    document.getElementById(time).classList.add("selected_time")
-}
-
-window.addEventListener('keydown', function (e) { 
-    if(e.keyCode == 37){
-        //left
-        if (day != 1){
-        window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) - 1) + "/");
-        }
-    }else if(e.keyCode == 39){
-        if(day != last_day){
-            //right
-            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) + 1) + "/");
-        }
-    }else if(e.keyCode == 38){
-        //up
-        if(day > 7){
-            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) - 7) + "/");
-        }
-    }else if(e.keyCode == 40){
-        //down
-        if(day < (last_day-6)){
-            window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) + 7) + "/");
-        }
-    }else if(e.keyCode == 13){
-        submit_form()
-    }
-}, false);
-
-function fetch_data(e) {
-        let day = e.target.innerHTML;
-        if (Number.isInteger(parseInt(day))) {
-            // Remove the "selected-day" class from all elements with class "Calender-td"
-            let calender_td = document.getElementsByClassName("Calender-td");
-            for (let i = 0; i < calender_td.length; i++) {
-                calender_td[i].classList.remove("selected-day");
+            if (old_id != "None"){
+                //alert(old_id)
+                document.getElementById(old_id).classList.remove("selected_time")
             }
-
-            // Add the "selected-day" class to the selected day
-            e.target.classList.add("selected-day");
-
-            // Store the selected day in localStorage
-            localStorage.setItem("selectedDay", day);
-
-            // Construct the new URL with the selected day and navigate to it
-            let newUrl = `/calendar/calender/${office_id}/${year}/${month}/${day}/`;
-            window.location.href = newUrl;
+            old_id = time
+            document.getElementById(time).classList.add("selected_time")
         }
-    }
 
-    // Call the function when the page loads to set the selected day if it's available in localStorage
-    window.addEventListener("load", function () {
-        let selectedDay = localStorage.getItem("selectedDay");
-        if (selectedDay) {
-            let calender_td = document.getElementsByClassName("Calender-td");
-            for (let i = 0; i < calender_td.length; i++) {
-                if (calender_td[i].innerHTML === selectedDay) {
-                    calender_td[i].classList.add("selected-day");
-                    break;
+        window.addEventListener('keydown', function (e) { 
+            if(e.keyCode == 37){
+                //left
+                if (day != 1){
+                window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) - 1) + "/");
+                }
+            }else if(e.keyCode == 39){
+                if(day != last_day){
+                    //right
+                    window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) + 1) + "/");
+                }
+            }else if(e.keyCode == 38){
+                //up
+                if(day > 7){
+                    window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) - 7) + "/");
+                }
+            }else if(e.keyCode == 40){
+                //down
+                if(day < (last_day-6)){
+                    window.location.replace("/calendar/calender/" + office_id + "/" + year + "/" + month + "/" + (parseInt(day) + 7) + "/");
+                }
+            }else if(e.keyCode == 13){
+                submit_form()
+            }
+        }, false);
+
+        function fetch_data(e) {
+                let day = e.target.innerHTML;
+                if (Number.isInteger(parseInt(day))) {
+                    // Remove the "selected-day" class from all elements with class "Calender-td"
+                    let calender_td = document.getElementsByClassName("calender-td");
+                    for (let i = 0; i < calender_td.length; i++) {
+                        calender_td[i].classList.remove("selected-day");
+                    }
+
+                    // Add the "selected-day" class to the selected day
+                    e.target.classList.add("selected-day");
+
+                    // Store the selected day in localStorage
+                    localStorage.setItem("selectedDay", day);
+
+                    // Construct the new URL with the selected day and navigate to it
+                    let newUrl = `/calendar/calender/${office_id}/${year}/${month}/${day}/`;
+                    window.location.href = newUrl;
                 }
             }
+
+            // Call the function when the page loads to set the selected day if it's available in localStorage
+            window.addEventListener("load", function () {
+                let selectedDay = localStorage.getItem("selectedDay");
+                if (selectedDay) {
+                    let calender_td = document.getElementsByClassName("calender-td");
+                    for (let i = 0; i < calender_td.length; i++) {
+                        if (calender_td[i].innerHTML === selectedDay) {
+                            calender_td[i].classList.add("selected-day");
+                            break;
+                        }
+                    }
+                }
+            });
+
+            // ... (existing code) ...
+
+            function selectDay(dayNumber) {
+                let calender_td = document.getElementsByClassName("calender-td");
+                for (let i = 0; i < calender_td.length; i++) {
+                    if (calender_td[i].innerHTML === dayNumber.toString()) {
+                        calender_td[i].classList.add("selected-day");
+                    } else {
+                        calender_td[i].classList.remove("selected-day");
+                    }
+                }
+            }
+
+            window.addEventListener("keydown", function (e) {
+                if (e.keyCode === 37) {
+                    // Left arrow key
+                    let prevDay = parseInt(localStorage.getItem("selectedDay")) - 1;
+                    if (prevDay >= 1) {
+                        selectDay(prevDay);
+                        localStorage.setItem("selectedDay", prevDay);
+                        e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+                    }
+                } else if (e.keyCode === 39) {
+                    // Right arrow key
+                    let nextDay = parseInt(localStorage.getItem("selectedDay")) + 1;
+                    if (nextDay <= last_day) {
+                        selectDay(nextDay);
+                        localStorage.setItem("selectedDay", nextDay);
+                        e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+                    }
+                } else if (e.keyCode === 38) {
+                    // Up arrow key
+                    let prevWeekDay = parseInt(localStorage.getItem("selectedDay")) - 7;
+                    if (prevWeekDay >= 1) {
+                        selectDay(prevWeekDay);
+                        localStorage.setItem("selectedDay", prevWeekDay);
+                        e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+                    }
+                } else if (e.keyCode === 40) {
+                    // Down arrow key
+                    let nextWeekDay = parseInt(localStorage.getItem("selectedDay")) + 7;
+                    if (nextWeekDay <= last_day) {
+                        selectDay(nextWeekDay);
+                        localStorage.setItem("selectedDay", nextWeekDay);
+                        e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
+                    }
+                }
+            });
+
+            function toggleButtonState(button) {
+        button.classList.toggle("active");
         }
-    });
 
-    // ... (existing code) ...
-
-    function selectDay(dayNumber) {
-        let calender_td = document.getElementsByClassName("Calender-td");
-        for (let i = 0; i < calender_td.length; i++) {
-            if (calender_td[i].innerHTML === dayNumber.toString()) {
-                calender_td[i].classList.add("selected-day");
-            } else {
-                calender_td[i].classList.remove("selected-day");
-            }
-        }
-    }
-
-    window.addEventListener("keydown", function (e) {
-        if (e.keyCode === 37) {
-            // Left arrow key
-            let prevDay = parseInt(localStorage.getItem("selectedDay")) - 1;
-            if (prevDay >= 1) {
-                selectDay(prevDay);
-                localStorage.setItem("selectedDay", prevDay);
-                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
-            }
-        } else if (e.keyCode === 39) {
-            // Right arrow key
-            let nextDay = parseInt(localStorage.getItem("selectedDay")) + 1;
-            if (nextDay <= last_day) {
-                selectDay(nextDay);
-                localStorage.setItem("selectedDay", nextDay);
-                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
-            }
-        } else if (e.keyCode === 38) {
-            // Up arrow key
-            let prevWeekDay = parseInt(localStorage.getItem("selectedDay")) - 7;
-            if (prevWeekDay >= 1) {
-                selectDay(prevWeekDay);
-                localStorage.setItem("selectedDay", prevWeekDay);
-                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
-            }
-        } else if (e.keyCode === 40) {
-            // Down arrow key
-            let nextWeekDay = parseInt(localStorage.getItem("selectedDay")) + 7;
-            if (nextWeekDay <= last_day) {
-                selectDay(nextWeekDay);
-                localStorage.setItem("selectedDay", nextWeekDay);
-                e.preventDefault(); // Prevent the default behavior of arrow keys scrolling the page
-            }
-        }
-    });
-
-    function toggleButtonState(button) {
-  button.classList.toggle("active");
-}
-
-function submit_form() {
-  const selectedTime = document.getElementById("id_time").value;
-  const errorsElement = document.getElementById("errors");
-
-  if (selectedTime) {
-    errorsElement.textContent = ""; // Clear any previous error message
-    document.getElementById("appointment_form").submit();
-    document.getElementById("id_month").value = month;
-    document.getElementById("id_year").value = year;
-    document.getElementById("id_day").value = day;
-  } else {
-    errorsElement.textContent = "Please select a time...";
-    errorsElement.classList.add("error");
-  }
-}
-
-function cancel_days() {
-    const errorsElement = document.getElementById("errors");
-    for (i = 0; i < filled.length; i++) {
-      if (filled[i] >= times_len) {
-        $("td:contains(" + CSS.escape(i) + "):first").addClass("filled");
-        if (day == i) {
-          none_left = "True";
-          // If all time slots are taken for this day, add the "no-slots" class to the corresponding td element
-          $("td:contains(" + CSS.escape(i) + "):first").addClass("no-slots");
-          errorsElement.textContent = "Please select a day with open time slots...";
-          errorsElement.classList.add("error");
-        }
-      }
-      // If all time slots are taken for a day, add the "no-slots" class to the corresponding td element
-      if (filled[i] >= times_len) {
-        $("td:contains(" + CSS.escape(i) + "):first").addClass("no-slots");
-      }
-    }
-
-    // Add the "past-day" class to days before today's date
-    let today = new Date().getDate();
-    $("td:lt(" + (today - 1) + ")").addClass("past-day");
-  }
-
-  
-    // ... (existing code) ...
-
-    // Function to check if a date is in the past
-    function isPastDay(year, month, day) {
-        const today = new Date();
+        function submit_form() {
+        const selectedTime = document.getElementById("id_time").value;
         const errorsElement = document.getElementById("errors");
-        const inputDate = new Date(year, month - 1, day); // Note: JavaScript months are 0-indexed (0-11)
-        return inputDate < today;
-    }
 
-    // Function to apply styles to the calendar days
-    function applyCalendarStyles() {
-        const errorsElement = document.getElementById("errors");
-        const calender_td = document.getElementsByClassName("Calender-td");
-        for (let i = 0; i < calender_td.length; i++) {
-            const dayNumber = parseInt(calender_td[i].innerHTML);
-            if (isNaN(dayNumber)) {
-                continue; // Skip non-number elements
-            }
-
-            if (dayNumber === day) {
-                calender_td[i].classList.add("selected-day");
-            } else {
-                calender_td[i].classList.remove("selected-day");
-            }
-
-            // Check if the day is in the past and add the "past-day" class
-            const yearNumber = parseInt(year);
-            const monthNumber = parseInt(months[month]);
-            if (isPastDay(yearNumber, monthNumber, dayNumber)) {
-                calender_td[i].classList.add("past-day");
-                errorsElement.textContent = "Please do not select past days...";
-          errorsElement.classList.add("error");
-            } else {
-                calender_td[i].classList.remove("past-day");
-            }
+        if (selectedTime) {
+            errorsElement.textContent = ""; // Clear any previous error message
+            document.getElementById("appointment_form").submit();
+            document.getElementById("id_month").value = month;
+            document.getElementById("id_year").value = year;
+            document.getElementById("id_day").value = day;
+        } else {
+            errorsElement.textContent = "Please select a time...";
+            errorsElement.classList.add("error");
         }
-    }
-
-    // Call the function when the page loads to set the selected day if it's available in localStorage
-    window.addEventListener("load", function () {
-        const selectedDay = localStorage.getItem("selectedDay");
-        if (selectedDay) {
-            selectDay(parseInt(selectedDay));
         }
-        applyCalendarStyles(); // Apply styles when the page loads
-    });
+
+        function cancel_days() {
+            const errorsElement = document.getElementById("errors");
+            for (i = 0; i < filled.length; i++) {
+            if (filled[i] >= times_len) {
+                $("td:contains(" + CSS.escape(i) + "):first").addClass("filled");
+                if (day == i) {
+                none_left = "True";
+                // If all time slots are taken for this day, add the "no-slots" class to the corresponding td element
+                $("td:contains(" + CSS.escape(i) + "):first").addClass("no-slots");
+                errorsElement.textContent = "Please select a day with open time slots...";
+                errorsElement.classList.add("error");
+                }
+            }
+            // If all time slots are taken for a day, add the "no-slots" class to the corresponding td element
+            if (filled[i] >= times_len) {
+                $("td:contains(" + CSS.escape(i) + "):first").addClass("no-slots");
+            }
+            }
+
+            // Add the "past-day" class to days before today's date
+            let today = new Date().getDate();
+            $("td:lt(" + (today - 1) + ")").addClass("past-day");
+        }
+
+        
+            // ... (existing code) ...
+
+            // Function to check if a date is in the past
+            function isPastDay(year, month, day) {
+                const today = new Date();
+                const errorsElement = document.getElementById("errors");
+                const inputDate = new Date(year, month - 1, day); // Note: JavaScript months are 0-indexed (0-11)
+                return inputDate < today;
+            }
+
+            function preventPastSelect(year, month, day) {
+                const yearNumber = parseInt(year);
+                    const monthNumber = parseInt(months[month]);
+                    if (isPastDay(yearNumber, monthNumber, dayNumber)) {
+                        calender_td[i].classList.add("past-day");
+                        errorsElement.textContent = "Please do not select past days...";
+                        errorsElement.classList.add("error");                           
+                        var buttonNorm = document.getElementById("buttonNorm");
+    buttonNorm.classList.remove("button1");
+    buttonNorm.classList.add("button2");
+                            
+                    } else {
+                        calender_td[i].classList.remove("past-day");
+                    }
+            }
+
+            // Function to apply styles to the calendar days
+            function applyCalendarStyles() {
+                const errorsElement = document.getElementById("errors");
+                const calender_td = document.getElementsByClassName("calender-td");
+                for (let i = 0; i < calender_td.length; i++) {
+                    const dayNumber = parseInt(calender_td[i].innerHTML);
+                    if (isNaN(dayNumber)) {
+                        continue; // Skip non-number elements
+                    }
+
+                    if (dayNumber === day) {
+                        calender_td[i].classList.add("selected-day");
+                    } else {
+                        calender_td[i].classList.remove("selected-day");
+                    }
+
+                    // Check if the day is in the past and add the "past-day" class
+                    const yearNumber = parseInt(year);
+                    const monthNumber = parseInt(months[month]);
+                    if (isPastDay(yearNumber, monthNumber, dayNumber)) {
+                        calender_td[i].classList.add("past-day");
+                        errorsElement.textContent = "Please do not select past days...";
+                        errorsElement.classList.add("error");
+                    } else {
+                        calender_td[i].classList.remove("past-day");
+                    }
+                }
+            }
+
+            // Call the function when the page loads to set the selected day if it's available in localStorage
+            window.addEventListener("load", function () {
+                const selectedDay = localStorage.getItem("selectedDay");
+                if (selectedDay) {
+                    selectDay(parseInt(selectedDay));
+                }
+                applyCalendarStyles(); // Apply styles when the page loads
+            });
+
+            
     </script>
 
 </body>

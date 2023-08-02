@@ -140,6 +140,8 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
         for i in range(32):
             if j.day == i:
                 filled[i] += 1
+
+
     return render(request, 'calender.html',{
         "year":year,
         "month":month,
@@ -160,4 +162,6 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
         "duplicate": duplicate,
         "office_id":office_id,
         "time_options":time_options,
+        'today': today,
+        #'past': past
         })
