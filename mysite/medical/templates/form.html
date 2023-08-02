@@ -10,14 +10,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://api.geoapify.com/v1/geocode/autocomplete?text=Mosco&apiKey=2f66e0d2e25a40ba8a098c2c3a03d727"></script>
     <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3d9e9bf06e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="custom-form-label">
+
+    <div id="animated-bg"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script>
+    VANTA.WAVES({
+        el: "#animated-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 500.00,
+        minWidth: 500.00,
+        scale: 1.00,
+        color: 0x13415c,
+        scaleMobile: 1.00,
+        waveSpeed: 0.60
+    })
+    
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(rgb(32, 138, 180), rgb(5, 2, 32));
+            min-height: 2000px;
+            z-index: -1;
+            background-blend-mode: normal;
+        }
+        
+        .container4 {
+            background-image: url('image.jpg');
+            background-color: rgb(5, 2, 32);
+            background-blend-mode: screen;
+        }
+
+        .lower2 {
+            margin-top: 500px;
+        }
+
+        .lower3 {
+            margin-top: 100px;
+        }
+
+
+        #form {
+            margin-top: 500px;
+        }
+
+        .arrow {
+            color: rgb(255, 255, 255);
+            height: 100px;
+            width: 30px;
+        }
+    </style>
+
+    <div class="center lower" data-aos="fade-right" >
+        <h1 class="">Welcome to the Form Portal!</h1>
+        <h2 class="lower3">Click below to access it!</h2>
+        <a href="#form"><i class="fa-solid fa-arrow-down white fa-beat-fade fa-2xl"></i></a>
+    </div>
+
+    <div class="custom-form-label lower2" id="form">
         <div class="center-content">
             <div class="container2">
                 <form action="" method=POST>
                     {% csrf_token %}
-
                     {{ form.as_p }}
                     <div class="center">
                         <input type="submit" value="Submit" class="submit-button2">
@@ -27,6 +89,38 @@
         </div>
     </div>
 
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
+    <script>
+        AOS.init();
+      </script>
 </body>
 </html>
 
