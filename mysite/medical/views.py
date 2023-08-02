@@ -111,7 +111,7 @@ def results(request, id):
 @login_required(login_url='/user/login')
 def database(request):
     offices = Office.objects.all()
-    return render(request, 'database.html', {'offices': offices, 'current_year': current_year, 'current_month': current_month, 'current_day': current_day})
+    return render(request, 'database.html', {'offices': offices})
 
 @login_required(login_url='/user/login')
 def about(request):

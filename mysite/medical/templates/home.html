@@ -1,30 +1,55 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Poppins:wght@200&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
 
-    <div class="center">
-        <h1 class="title">Welcome to HealthTech, {{ username }}!</h1>
+  <div class="container1 bg-image">
+    <div class="higher full_nav">
+    <div class="navbar1">
+        <nav>
+            <a href="/medical/home">Home</a>
+            <a href="/medical/form">Form</a>
+            <a href="/medical/database">Database</a>
+            <a href="/medical/about">About</a>
+            {% if user.is_authenticated %}
+            <a href="/user/logout">Logout</a>
+            {% else %}
+            <a href="/user/login">Login</a>
+            <a href="/user/register">Sign Up</a>
+            {% endif %}
+        </nav>
+    </div>
+    </div>
+
+</div>
+    <div class="center bg-image">
+        <h1 class="title">Welcome to HealthTech</h1>
         <div class="sub-title">
-            <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
-            <h2>Search for a medical office near you!</h2>
+            <h2>An everyday solution for those in search of a medical office and accessible appointment booking system</h2>
         </div>
         </div>
-          <form class="form1" action="" method="POST" autocomplete="off">
+        <a id = "scroll_link" href="#scroll1">
+        <span class="hero__scroll">
+          Scroll down <br>
+          <i class="chevron bottom fa-solid fa-angle-down fa-xl"></i>
+        </span></a>
+          <!-- <form class="form1" action="" method="POST" autocomplete="off">
             {% csrf_token %}
-            <div class="autocomplete" style="width:300px;">
-              <input id="myInput" type="text" name="query" placeholder="Search...">
+            <div class="autocomplete" style="width:400px;">
+              <input class = "search-input" id="myInput" type="text" name="query" placeholder="Search...">
             </div>
-            <input type="submit">
+            <input class = "search-button" type="submit">
             
 
         {% if name1 %}
@@ -33,12 +58,105 @@
             <p class="message">{{ none }}</p>
         {% endif %}
 
-        <!--<h2>Office creation form <a href="/medical/form">here!</a></h2>-->
+        <h2>Office creation form <a href="/medical/form">here!</a></h2>
+      </form> -->
+
+      <div id = "gradient" class = "gradient" style = "background-image: linear-gradient(#031f33, #0a405f);"></div>
+      <div id = "scroll1" class = "about-whole">
+      <section class = "container about">
+        <h2>How It Works:</h2>
+        <div data-aos= "fade-right" class = "row tutorial tutorial-1">
+          <div class="col-sm-6">
+            <h3><strong>1.</strong> Book Your Appoinment</h3>
+            <p>Find a medical office near you and choose a time and date that works for you.</p>
+          </div>
+          <div class="col-sm-6">
+            <img class = "svgs" src = "{% static 'images/laptop.svg' %}">
+          </div>
+        </div>
+        <hr>
+        <div data-aos= "fade-left" class="row tutorial tutorial2">
+          <div class="col-sm-6">
+            <img class = "svgs" src = "{% static 'images/walking.svg' %}">
+          </div>
+          <div class="col-sm-6">
+            <h3><strong>2.</strong> Travel</h3>
+            <p>Travel to your booked medical office for your appointment. Try to be around 15 minutes early for check in</p>
+          </div>
+        </div>
+        <hr>
+        <div data-aos= "fade-right" class="row tutorial tutorial1">
+          <div class="col-sm-6">
+            <h3><strong>3.</strong> Done!</h3>
+            <p>Listen for your name in the waiting room, and then preceed to your room for your appointment</p>
+          </div>
+          <div class="col-sm-6">
+            <img class = "svgs" src = "{% static 'images/relax.svg' %}">
+          </div>
+        </div>
+
+      </section>
+      </div>
 
 
-      </form>
-
+      {% include 'footer.html' %}
       <script>
+
+
+
+
+function amountscrolled(){
+    var winheight = $(window).height()
+    var docheight = $(document).height()
+    var scrollTop = $(window).scrollTop()
+    var trackLength = docheight - winheight
+    var pctScrolled = Math.floor(scrollTop/trackLength * 100) // gets percentage scrolled (ie: 80 NaN if tracklength == 0)
+    if(pctScrolled > 35 && pctScrolled < 60){
+      offset = pctScrolled - 35
+      offset = offset/25
+      rog = 3
+      gog = 31
+      bog = 51
+      r = 2
+      g = 22
+      b = 31
+      r *= offset
+      g *= offset
+      b *= offset
+      rog += r
+      gog -= g
+      bog -= b
+      //console.log(Math.round((offset + Number.EPSILON) * 100) / 100)
+      console.log(pctScrolled)
+      //console.log("r:" + rog + " g:" + gog + " b:" + bog)
+      document.getElementById("gradient").style.backgroundImage = "linear-gradient(rgb(" + rog + "," + gog + "," + bog + "), #0a405f)";
+      document.getElementById("gradient").style.boxShadow = "0px -20px 50px 10px rgb(" + rog + "," + gog + "," + bog + ")";
+
+}}
+ 
+$(window).on("scroll", function(){
+    amountscrolled()
+})
+
+
+
+  /* VANTA.WAVES({
+          el: "#animated-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 300.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          color: 0x13415c,
+          scaleMobile: 1.00,
+          waveSpeed: 0.60
+      }) */
+
+
+
+
+    
         function autocomplete(inp, arr) {
           /*the autocomplete function takes two arguments,
           the text field element and an array of possible autocompleted values:*/
@@ -62,6 +180,7 @@
                 /*check if the item starts with the same letters as the text field value:*/
                 if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && max < 4) {
                   max++;
+                  document.getElementById("myInput").style.borderRadius = "8px 0 0 0";
                   /*create a DIV element for each matching element:*/
                   b = document.createElement("DIV");
                   /*make the matching letters bold:*/
@@ -125,6 +244,7 @@
           function closeAllLists(elmnt) {
             /*close all autocomplete lists in the document,
             except the one passed as an argument:*/
+            document.getElementById("myInput").style.borderRadius = "8px 0 0 8px";
             var x = document.getElementsByClassName("autocomplete-items");
             for (var i = 0; i < x.length; i++) {
               if (elmnt != x[i] && elmnt != inp) {
@@ -145,9 +265,10 @@
         {% endfor %}
         
         /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-        autocomplete(document.getElementById("myInput"), countries);
+        //autocomplete(document.getElementById("myInput"), countries);
         </script>
 
-{% endblock %}
 </body>
 </html>
+
+{% endblock %}
