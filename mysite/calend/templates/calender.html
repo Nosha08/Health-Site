@@ -9,6 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/3d9e9bf06e.js" crossorigin="anonymous"></script>
+
 </head>
 <p>
     {% if duplicate %}
@@ -23,8 +25,8 @@
     <center>
     <div id = "calender">
     <div class="box calendar">
-        <button class="button1 higher" onclick = "back()">Back</button>
-        <button class="button1 higher" onclick = "next()">Next</button>
+        <i class="higher left fa-light fa-less-than fa-2xl" onclick = "back()"></i>
+        <i class="higher right fa-light fa-greater-than fa-2xl" onclick = "next()"></i>
         {{ cal|safe }}
     </div>
     </div>
@@ -68,6 +70,17 @@
             margin-top: 10px;
             font-weight: bolder;
         }
+
+        .left {
+            margin-right: 45%;
+            display: inline-block;
+        }
+
+        .right {
+            margin-left: 45%;
+            display: inline-block;
+        }
+
 
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
         
@@ -174,7 +187,7 @@
         .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-year-label,
         .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-month-label {
             font-weight: 500;
-            font-size: 20px;
+            font-size: 25px;
         }
 
         .calendar .calendar-inner .calendar-body .calendar-today {
@@ -254,6 +267,7 @@
 
     </style>
 {% endif %}
+
     <script>
         
         var calender = document.getElementById("calender")
@@ -575,18 +589,19 @@
 
             function preventPastSelect(year, month, day) {
                 const yearNumber = parseInt(year);
-                    const monthNumber = parseInt(months[month]);
-                    if (isPastDay(yearNumber, monthNumber, dayNumber)) {
-                        calender_td[i].classList.add("past-day");
-                        errorsElement.textContent = "Please do not select past days...";
-                        errorsElement.classList.add("error");                           
-                        var buttonNorm = document.getElementById("buttonNorm");
-    buttonNorm.classList.remove("button1");
-    buttonNorm.classList.add("button2");
-                            
-                    } else {
-                        calender_td[i].classList.remove("past-day");
-                    }
+                const monthNumber = months[month];
+                const today = new Date();
+                const selectedDate = new Date(yearNumber, monthNumber - 1, day);
+
+                const buttonNorm = document.getElementById("buttonNorm");
+
+                if (selectedDate < today) {
+                    buttonNorm.classList.remove("button1");
+                    buttonNorm.classList.add("button2");
+                } else {
+                    buttonNorm.classList.remove("button2");
+                    buttonNorm.classList.add("button1");
+                }
             }
 
             // Function to apply styles to the calendar days
@@ -626,7 +641,7 @@
                 }
                 applyCalendarStyles(); // Apply styles when the page loads
             });
-
+                
             
     </script>
 
