@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -11,46 +11,69 @@
     <title>Document</title>
 </head>
 <body>
+
     <style>
-        body {
-            background-color: rgb(108, 179, 219);
-        }
+    body {
+        background-color: rgb(178, 207, 226);
+    }
     </style>    
-          <div class="container">
-            <div class="row align-items-start">
-              <div class="col">
-                One of three columns
-              </div>
-              <div class="col">
-                One of three columns
-              </div>
-              <div class="col">
-                One of three columns
-              </div>
+
+    
+{% for office in offices %}
+    <div class="row">
+        <div class="col">
+            <div class="center-content">
+                <div class="office-card">
+                        <div class="container-card">
+                            <div class="center">
+                                <h1>{{ office.name }}</h1>
+                                <h2>{{ office.open }}</h2>
+                                <h2>{{ office.close }}</h2>
+                                <h2>{{ office.location }}</h2>
+                                <p>{{ office.description }}</p>
+                                <button class="book-button" type="button"><a href="/medical/results/{{ office.id }}">Go to page</a></button>                
+                            </div>
+                        </div>
+                </div>
             </div>
-            <div class="row align-items-center">
-              <div class="col">
-                One of three columns
-              </div>
-              <div class="col">
-                One of three columns
-              </div>
-              <div class="col">
-                One of three columns
-              </div>
+        </div>
+        <div class="col">
+            <div class="center-content">
+                <div class="office-card">
+                        <div class="container-card">
+                            <div class="center">
+                                <h1>{{ office.name }}</h1>
+                                <h2>{{ office.open }}</h2>
+                                <h2>{{ office.close }}</h2>
+                                <h2>{{ office.location }}</h2>
+                                <p>{{ office.description }}</p>
+                                <button class="book-button" type="button"><a href="/medical/results/{{ office.id }}">Go to page</a></button>                
+                            </div>
+                        </div>
+                </div>
             </div>
-            <div class="row align-items-end">
-              <div class="col">
-                One of three columns
-              </div>
-              <div class="col">
-                One of three columns
-              </div>
-              <div class="col">
-                One of three columns
-              </div>
+        </div>
+        <div class="col">
+            <div class="center-content">
+                <div class="office-card">
+                        <div class="container-card">
+                            <div class="center">
+                                <h1>{{ office.name }}</h1>
+                                <h2>{{ office.open }}</h2>
+                                <h2>{{ office.close }}</h2>
+                                <h2>{{ office.location }}</h2>
+                                <p>{{ office.description }}</p>
+                                <button class="book-button" type="button"><a href="/medical/results/{{ office.id }}">Go to page</a></button>                
+                            </div>
+                        </div>
+                </div>
             </div>
-          </div>  
-{% endblock %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+            
 </body>
 </html>
+
+{% endblock %}

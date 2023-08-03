@@ -321,7 +321,6 @@ input[name="description"] {
   flex-wrap: wrap;
   justify-content: space-between; 
   max-height: 700px; 
-  overflow-y: auto;
 }
 
 .hidden-form-element {
