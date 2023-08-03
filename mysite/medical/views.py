@@ -23,9 +23,12 @@ def index(request):
 
 @login_required(login_url='/user/login')
 def form(request):
+    print("there")
     if request.method == 'POST':
+        print("even more")
         form = OfficeForm1(request.POST)
         if form.is_valid():
+            print("the most")
             name = form.cleaned_data['name']
             open = form.cleaned_data['open']
             close = form.cleaned_data['close']
