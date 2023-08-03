@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<style>
+    body {
+        background-image: url("../static/images/dark-city-bg.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-blend-mode: darken;
+    }
+
+    .animate-charcter
+    {
+    background-image: linear-gradient(
+        -225deg,
+        #0b6bc5 0%,
+        #44107a 29%,
+        #ff1361 67%,
+        #fff800 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    display: inline-block;
+    }
+
+    @keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+    }
+</style>
+<div class="center" data-aos="fade-right">
+    <h1 class="title">Welcome to HealthTech, {{ username }}!</h1>
+    <div class="sub-title">
+        <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
+        <h2>Search for a medical office near you!</h2>
+    </div>
+    <div class="lower1">
+        <form class="form1" action="" method="POST">
+            {% csrf_token %}
+            <input class="search-input" type="text" name="query" placeholder="Search for a medical office..."/>
+            <button class="search-button" type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if name1 %}
+        <p class="alert-message1">{{ error }}</p>
+    {% else %}
+        <p class="message">{{ none }}</p>
+    {% endif %}
+
+    <h2>Office creation form <a href="/medical/form">here!</a></h2>
+</div>
+
+{% endblock %}
+</body>
+</html>

@@ -131,3 +131,28 @@ def database(request):
 @login_required(login_url='/user/login')
 def about(request):
     return render(request, 'about.html', {})
+
+@login_required(login_url='/user/login')
+def home1(request):
+    error = ''
+    name1 = None
+    if request.user.is_authenticated:
+        username = request.user.username
+    if request.method == 'POST':
+        name1 = request.POST.get('query')
+        print(name1)
+        offices = Office.objects.all()
+        office_names = []
+        for i in offices:
+            office_names.append(i)
+        for x in offices:
+            if x.name == name1:
+                print('Yes')
+                print(x.id)
+                error = ''
+                return redirect('/medical/results/{id}'.format(id=x.id))
+    offices = Office.objects.all()
+    office_names = []
+    for i in offices:
+        office_names.append(i.name)   
+    return render(request, 'home1.html', {"office_names": office_names, 'username': username})
