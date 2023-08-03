@@ -7,8 +7,8 @@ class OfficeForm1(ModelForm):
         model = Office
         fields = ('__all__')
         widgets = {
-            'open': forms.TimeInput(attrs={'type': 'time'}),
-            'close': forms.TimeInput(attrs={'type': 'time'}),
+            'open': forms.TimeInput(attrs={'type': 'time','onfocus': "this.showPicker()"}),
+            'close': forms.TimeInput(attrs={'type': 'time','onfocus': "this.showPicker()"}),
         }
         input_formats = {
             'open': ['%H:%M'],

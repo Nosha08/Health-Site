@@ -1,30 +1,38 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Poppins:wght@200&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
 
-    <div class="center">
-        <h1 class="title">Welcome to HealthTech, {{ username }}!</h1>
+
+    <div class="center bg-image">
+        <h1 class="title">Welcome to HealthTech</h1>
         <div class="sub-title">
-            <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
-            <h2>Search for a medical office near you!</h2>
+            <h2>An everyday solution for those in search of a medical office and accessible appointment booking system</h2>
         </div>
-        <div class="lower1">
-            <form class="form1" action="" method="POST">
-                {% csrf_token %}
-                <input class="search-input" type="text" name="query" placeholder="Search for a medical office..."/>
-                <button class="search-button" type="submit">Search</button>
-            </form>
         </div>
+        <a id = "scroll_link" href="#scroll1">
+        <span class="hero__scroll">
+          Scroll down <br>
+          <i class="chevron bottom fa-solid fa-angle-down fa-xl"></i>
+        </span></a>
+          <!-- <form class="form1" action="" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="autocomplete" style="width:400px;">
+              <input class = "search-input" id="myInput" type="text" name="query" placeholder="Search...">
+            </div>
+            <input class = "search-button" type="submit">
+            
 
         {% if name1 %}
             <p class="alert-message1">{{ error }}</p>
@@ -33,9 +41,222 @@
         {% endif %}
 
         <h2>Office creation form <a href="/medical/form">here!</a></h2>
+      </form> -->
 
-    </div>
+      <div id = "gradient" class = "gradient" style = "background-image: linear-gradient(#031f33, #0a405f);"></div>
+      <div id = "scroll1" class = "about-whole">
+      <section class = "container about">
+        <h2>How It Works:</h2>
+        <div data-aos= "fade-right" class = "row tutorial tutorial-1">
+          <div class="col-sm-6">
+            <h3><strong>1.</strong> Book Your Appoinment</h3>
+            <p>Find a medical office near you and choose a time and date that fits your schedule.</p>
+          </div>
+          <div class="col-sm-6">
+            <img class = "svgs" src = "{% static 'images/laptop.svg' %}">
+          </div>
+        </div>
+        <hr>
+        <div data-aos= "fade-left" class="row tutorial tutorial2">
+          <div class="col-sm-6">
+            <img class = "svgs" src = "{% static 'images/walking.svg' %}">
+          </div>
+          <div class="col-sm-6">
+            <h3><strong>2.</strong> Travel</h3>
+            <p>Travel to your booked medical office for your appointment. Try to be around 15 minutes early for check in</p>
+          </div>
+        </div>
+        <hr>
+        <div data-aos= "fade-right" class="row tutorial tutorial1">
+          <div class="col-sm-6">
+            <h3><strong>3.</strong> Done!</h3>
+            <p>Listen for your name in the waiting room, and then preceed to your room for your appointment</p>
+          </div>
+          <div class="col-sm-6">
+            <img class = "svgs" src = "{% static 'images/relax.svg' %}">
+          </div>
+        </div>
 
-{% endblock %}
+      </section>
+      </div>
+      <section id = "login_home">
+        <div class="container">
+        <h2>Ready To Start?</h2>
+        <p><a href = "/user/register" class = "home_form_link">Create an account</a> to get started or <a href = "/user/login" class = "home_form_link">login</a></p>
+      </div>
+      </section>
+
+
+      {% include 'footer.html' %}
+      <script>
+
+
+
+
+function amountscrolled(){
+    var winheight = $(window).height()
+    var docheight = $(document).height()
+    var scrollTop = $(window).scrollTop()
+    var trackLength = docheight - winheight
+    var pctScrolled = Math.floor(scrollTop/trackLength * 100) // gets percentage scrolled (ie: 80 NaN if tracklength == 0)
+    if(pctScrolled > 35 && pctScrolled < 60){
+      offset = pctScrolled - 35
+      offset = offset/25
+      rog = 3
+      gog = 31
+      bog = 51
+      r = 2
+      g = 22
+      b = 31
+      r *= offset
+      g *= offset
+      b *= offset
+      rog += r
+      gog -= g
+      bog -= b
+      //console.log(Math.round((offset + Number.EPSILON) * 100) / 100)
+      console.log(pctScrolled)
+      //console.log("r:" + rog + " g:" + gog + " b:" + bog)
+      document.getElementById("gradient").style.backgroundImage = "linear-gradient(rgb(" + rog + "," + gog + "," + bog + "), #0a405f)";
+      document.getElementById("gradient").style.boxShadow = "0px -20px 50px 10px rgb(" + rog + "," + gog + "," + bog + ")";
+
+}}
+ 
+$(window).on("scroll", function(){
+    amountscrolled()
+})
+
+
+
+  /* VANTA.WAVES({
+          el: "#animated-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 300.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          color: 0x13415c,
+          scaleMobile: 1.00,
+          waveSpeed: 0.60
+      }) */
+
+
+
+
+    
+        function autocomplete(inp, arr) {
+          /*the autocomplete function takes two arguments,
+          the text field element and an array of possible autocompleted values:*/
+          var currentFocus;
+          /*execute a function when someone writes in the text field:*/
+          inp.addEventListener("input", function(e) {
+              var a, b, i, val = this.value;
+              /*close any already open lists of autocompleted values*/
+              closeAllLists();
+              if (!val) { return false;}
+              currentFocus = -1;
+              /*create a DIV element that will contain the items (values):*/
+              a = document.createElement("DIV");
+              a.setAttribute("id", this.id + "autocomplete-list");
+              a.setAttribute("class", "autocomplete-items");
+              /*append the DIV element as a child of the autocomplete container:*/
+              this.parentNode.appendChild(a);
+              /*for each item in the array...*/
+              var max = 0
+              for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && max < 4) {
+                  max++;
+                  document.getElementById("myInput").style.borderRadius = "8px 0 0 0";
+                  /*create a DIV element for each matching element:*/
+                  b = document.createElement("DIV");
+                  /*make the matching letters bold:*/
+                  b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                  b.innerHTML += arr[i].substr(val.length);
+                  /*insert a input field that will hold the current array item's value:*/
+                  b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                  /*execute a function when someone clicks on the item value (DIV element):*/
+                  b.addEventListener("click", function(e) {
+                      /*insert the value for the autocomplete text field:*/
+                      inp.value = this.getElementsByTagName("input")[0].value;
+                      /*close the list of autocompleted values,
+                      (or any other open lists of autocompleted values:*/
+                      closeAllLists();
+                  });
+                  a.appendChild(b);
+                }
+              }
+          });
+          /*execute a function presses a key on the keyboard:*/
+          inp.addEventListener("keydown", function(e) {
+              var x = document.getElementById(this.id + "autocomplete-list");
+              if (x) x = x.getElementsByTagName("div");
+              if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+              } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+              } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                  /*and simulate a click on the "active" item:*/
+                  if (x) x[currentFocus].click();
+                }
+              }
+          });
+          function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+          }
+          function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+              x[i].classList.remove("autocomplete-active");
+            }
+          }
+          function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            document.getElementById("myInput").style.borderRadius = "8px 0 0 8px";
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+              if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+              }
+            }
+          }
+          /*execute a function when someone clicks in the document:*/
+          document.addEventListener("click", function (e) {
+              closeAllLists(e.target);
+          });
+        }
+        
+        /*An array containing all the country names in the world:*/
+        var countries = []
+        {% for i in office_names %}
+        countries.push("{{i}}")
+        {% endfor %}
+        
+        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+        //autocomplete(document.getElementById("myInput"), countries);
+        </script>
+
 </body>
 </html>
+
+{% endblock %}

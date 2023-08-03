@@ -5,17 +5,7 @@ from .forms import *
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from calend.views import *
-
-current_year = datetime.now().year
-
-current_day = datetime.now().day
-today = datetime.now()
-
-current_month = today.strftime("%B")
-
-time_choices = [0, 30, 100, 130, 200, 230, 300, 330, 400, 430,
-                500, 530, 600, 630, 700, 730, 800, 830,
+time_choices = [900, 930, 1000, 1030, 1100, 1130, 1200, 
                 1230, 1300, 1330, 1400, 1430, 1500, 1530, 
                 1600, 1630, 1700, 1730, 1800, 1830, 1900, 1930,
                 2000, 2030, 2100, 2130, 2200, 2230, 2300, 2330,
@@ -33,9 +23,12 @@ def index(request):
 
 @login_required(login_url='/user/login')
 def form(request):
+    print("there")
     if request.method == 'POST':
+        print("even more")
         form = OfficeForm1(request.POST)
         if form.is_valid():
+            print("the most")
             name = form.cleaned_data['name']
             open = form.cleaned_data['open']
             close = form.cleaned_data['close']
@@ -49,11 +42,10 @@ def form(request):
 
     return render(request, 'form.html', {'form': form})
 
-@login_required(login_url='/user/login')
 def home(request):
-    error = ''
-    name1 = None
-    if request.user.is_authenticated:
+    #error = ''
+    #name1 = None
+    """ if request.user.is_authenticated:
         username = request.user.username
     if request.method == 'POST':
         name1 = request.POST.get('query')
@@ -68,19 +60,14 @@ def home(request):
                 print(x.id)
                 error = ''
                 return redirect('/medical/results/{id}'.format(id=x.id))
-    offices = Office.objects.all()
+            else:
+                error = 'This office does not exist! Please try something else or create the page for it.'
+                 """
+    """ offices = Office.objects.all()
     office_names = []
     for i in offices:
-        office_names.append(i.name)   
-    return render(request, 'home.html', {"office_names": office_names, 'username': username})
-
-
-available_times_new = []
-am_list = []
-pm_list = []
-""" am_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} AM" for time in am_list]
-pm_strings = [f"{str(time)[:-2]}:{str(time)[-2:]} PM" for time in pm_list]
-time_options = am_strings + pm_strings """
+        office_names.append(i.name)    """
+    return render(request, 'home.html', {})
 
 #print(time_options)
 def results(request, id):
@@ -126,34 +113,13 @@ def results(request, id):
 @login_required(login_url='/user/login')
 def database(request):
     offices = Office.objects.all()
-    counter = 0
-    return render(request, 'database.html', {'offices': offices, 'current_year': current_year, 'current_month': current_month, 'current_day': current_day, 'counter': counter})
+    return render(request, 'database.html', {'offices': offices})
 
 @login_required(login_url='/user/login')
 def about(request):
     return render(request, 'about.html', {})
 
-@login_required(login_url='/user/login')
-def home1(request):
-    error = ''
-    name1 = None
-    if request.user.is_authenticated:
-        username = request.user.username
-    if request.method == 'POST':
-        name1 = request.POST.get('query')
-        print(name1)
-        offices = Office.objects.all()
-        office_names = []
-        for i in offices:
-            office_names.append(i)
-        for x in offices:
-            if x.name == name1:
-                print('Yes')
-                print(x.id)
-                error = ''
-                return redirect('/medical/results/{id}'.format(id=x.id))
-    offices = Office.objects.all()
-    office_names = []
-    for i in offices:
-        office_names.append(i.name)   
-    return render(request, 'home1.html', {"office_names": office_names, 'username': username})
+
+
+def test(request):
+    return render(request,'test.html',{})

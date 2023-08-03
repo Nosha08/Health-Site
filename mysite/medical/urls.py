@@ -10,5 +10,6 @@ urlpatterns = [
     path("welcome", views.home1, name="welcome"),
     path("database", views.database, name="database"),
     path("about", views.about, name="about"),
-    path("results/<int:id>", views.results, name="custom_result")
+    path("results/<int:id>", views.results, name="custom_result"),
+    path("test", views.test, name="test")
 ]
