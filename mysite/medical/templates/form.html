@@ -11,14 +11,15 @@
     <style>
       html, body {
       min-height: 100%;
+      background-color: #f9f9ff;
       }
-      body, div, form, input, select, textarea, label, p { 
+      body, div, form, input, select, textarea, label, p {
       padding: 0;
       margin: 0;
       outline: none;
       font-family: Roboto, Arial, sans-serif;
       font-size: 14px;
-      color: #666;
+      color: #031f33;
       line-height: 22px;
       }
       h1 {
@@ -46,12 +47,11 @@
       padding: 20px;
       border-radius: 6px;
       background: #fff;
-      box-shadow: 0 0 8px  #669999; 
       }
       .banner {
       position: relative;
       height: 300px;
-      background-image: url("{% static 'images/medical_form.jpg' %}");  
+      background-image: url("{% static 'images/medical_form2.jpg' %}");  
       background-size: cover;
       display: flex;
       justify-content: center;
@@ -82,12 +82,14 @@
       padding: 5px;
       }
       .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
-      color:  #669999;
+        transition: 0.1s;
+        color:  #031f33;
       }
       .item input:hover, .item select:hover, .item textarea:hover {
-      border: 1px solid transparent;
-      box-shadow: 0 0 3px 0  #669999;
-      color: #669999;
+        transition: 0.1s;
+        border: 1px solid transparent;
+        box-shadow: 0 0 3px 0  #031f33;
+        color: #031f33;
       }
       .item {
       position: relative;
@@ -102,7 +104,7 @@
       .item i, input[type="date"]::-webkit-calendar-picker-indicator {
       position: absolute;
       font-size: 20px;
-      color:  #a3c2c2;
+      color:  #031f33;
       }
       .item i {
       right: 1%;
@@ -115,9 +117,7 @@
       opacity: 0;
       cursor: pointer;
       }
-      input[type=radio], input[type=checkbox]  {
-      display: none;
-      }
+
       label.radio {
       position: relative;
       display: inline-block;
@@ -140,6 +140,7 @@
       border: 2px solid #ccc;
       }
       input[type=radio]:checked + label:before, label.radio:hover:before {
+        transition: 0.1s;
       border: 2px solid  #669999;
       }
       label.radio:after {
@@ -171,13 +172,14 @@
       padding: 10px;
       border: none;
       border-radius: 5px; 
-      background:  #669999;
+      background:  #031f33;
       font-size: 16px;
-      color: #fff;
+      color: #f9f9ff;
       cursor: pointer;
+      transition: 0.3s;
       }
       button:hover {
-      background:  #a3c2c2;
+      background:  #084d7e;
       }
       @media (min-width: 568px) {
       .name-item, .city-item {
@@ -199,7 +201,7 @@
   </head>
   <body>
     <div class="testbox">
-      <form action="/">
+      <form action="">
         <div class="banner">
           <h1>Family Medicine Practice</h1>
         </div>
@@ -235,13 +237,11 @@
           
         </fieldset>
         <div class="btn-block">
-          <button type="submit" href="/">Submit</button>
+          <button type="submit" href="">Submit</button>
         </div>
       </form>
     </div>
     <script>
-    document.getElementById("id_open").onfocus = "this.showPicker()";
-    document.getElementById("id_close").onfocus = "this.showPicker()";
 
     </script>
   </body>
