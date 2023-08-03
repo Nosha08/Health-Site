@@ -32,7 +32,7 @@ body {
 .center {
   text-align: center;
   padding-bottom:30%;
-  padding-top:4%;
+  padding-top:6%;
   padding-left: 7%;
   padding-right: 7%;
 
@@ -201,12 +201,6 @@ nav a:hover:before {
   line-height: 1.5;
 }
 
-.center-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
 .book-button {
   padding: 15px;
@@ -235,9 +229,8 @@ button a {
   color: red;
   font-size: 22px;
 }
-
+/* 
 input[name="name"] {
-  border: 2px solid #4ca3d1;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
@@ -247,7 +240,6 @@ input[name="name"] {
 }
 
 input[name="location"] {
-  border: 2px solid #4ca3d1;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
@@ -258,33 +250,25 @@ input[name="location"] {
 
 input[name="open"],
 input[name="close"] {
-  border: 2px solid #4ca3d1;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
-  font-family: 'PT Sans Narrow', sans-serif;
   min-width: 100px;
   margin-left: 40px;
 }
 
  input[name="description"] {
-  border: 2px solid #4ca3d1;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
-  font-family: 'PT Sans Narrow', sans-serif;
   min-width: 700px;
-}
+} */
  
 .container2 {
-  padding: 6px;
-  border-radius: 20px;
-  border: 12px solid #ffffff;
-  background-color: #646464;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 840px;
-  width: 100%;
-  max-height: 450px;
+  padding: 2% 10%;
+  font-family: 'Inter', sans-serif;
+  background-color: #031f33;
+  color: #f9f9ff;
 }
 
 .submit-button1 {
@@ -334,6 +318,9 @@ input[name="close"] {
   font-size: 28px;
 }
 
+.form-label{
+  font-weight:normal;
+}
 .lower {
   margin-top: 50px;
 }
@@ -408,10 +395,6 @@ input[name="close"] {
 
 .button1:hover {
   background-color: #3b8cbd;
-}
-
-a {
-  color: rgb(182, 198, 212);
 }
 
 h1 {
@@ -590,5 +573,22 @@ footer a:hover{
   text-decoration: none;
 }
 footer a{
-  padding:3px
+  padding:3px;
+  color: rgb(182, 198, 212);
+}
+
+#login_home{
+  text-align: center;
+  padding-top:3%;
+  padding-bottom:3%
+}
+
+#login_home h2{
+  color:#333;
+  padding-bottom: 2px;
+}
+
+.form_input{
+  color:black;
+  padding-bottom: 20px;
 }

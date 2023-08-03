@@ -14,25 +14,7 @@
 </head>
 <body>
 
-  <div class="container1 bg-image">
-    <div class="higher full_nav">
-    <div class="navbar1">
-        <nav>
-            <a href="/medical/home">Home</a>
-            <a href="/medical/form">Form</a>
-            <a href="/medical/database">Database</a>
-            <a href="/medical/about">About</a>
-            {% if user.is_authenticated %}
-            <a href="/user/logout">Logout</a>
-            {% else %}
-            <a href="/user/login">Login</a>
-            <a href="/user/register">Sign Up</a>
-            {% endif %}
-        </nav>
-    </div>
-    </div>
 
-</div>
     <div class="center bg-image">
         <h1 class="title">Welcome to HealthTech</h1>
         <div class="sub-title">
@@ -68,7 +50,7 @@
         <div data-aos= "fade-right" class = "row tutorial tutorial-1">
           <div class="col-sm-6">
             <h3><strong>1.</strong> Book Your Appoinment</h3>
-            <p>Find a medical office near you and choose a time and date that works for you.</p>
+            <p>Find a medical office near you and choose a time and date that fits your schedule.</p>
           </div>
           <div class="col-sm-6">
             <img class = "svgs" src = "{% static 'images/laptop.svg' %}">
@@ -97,6 +79,12 @@
 
       </section>
       </div>
+      <section id = "login_home">
+        <div class="container">
+        <h2>Ready To Start?</h2>
+        <p><a href = "/user/register" class = "home_form_link">Create an account</a> to get started or <a href = "/user/login" class = "home_form_link">login</a></p>
+      </div>
+      </section>
 
 
       {% include 'footer.html' %}

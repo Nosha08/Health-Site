@@ -39,11 +39,10 @@ def form(request):
 
     return render(request, 'form.html', {'form': form})
 
-@login_required(login_url='/user/login')
 def home(request):
-    error = ''
-    name1 = None
-    if request.user.is_authenticated:
+    #error = ''
+    #name1 = None
+    """ if request.user.is_authenticated:
         username = request.user.username
     if request.method == 'POST':
         name1 = request.POST.get('query')
@@ -60,12 +59,12 @@ def home(request):
                 return redirect('/medical/results/{id}'.format(id=x.id))
             else:
                 error = 'This office does not exist! Please try something else or create the page for it.'
-                
-    offices = Office.objects.all()
+                 """
+    """ offices = Office.objects.all()
     office_names = []
     for i in offices:
-        office_names.append(i.name)   
-    return render(request, 'home.html', {"office_names":office_names, "username":username})
+        office_names.append(i.name)    """
+    return render(request, 'home.html', {})
 
 @login_required(login_url='/user/login')
 def results(request, id):
@@ -116,3 +115,8 @@ def database(request):
 @login_required(login_url='/user/login')
 def about(request):
     return render(request, 'about.html', {})
+
+
+
+def test(request):
+    return render(request,'test.html',{})
