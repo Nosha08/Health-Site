@@ -434,8 +434,6 @@ input[type=text] {
 }
 
 input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
   cursor: pointer;
 }
 
@@ -564,9 +562,9 @@ hr{
   padding-bottom:2%;
 }
 
-.link_footer{
+/* .link_footer{
   padding-top: 2%;
-}
+} */
 
 .footer_copy{
   padding-bottom: 2%;
@@ -588,7 +586,11 @@ footer a{
 #login_home{
   text-align: center;
   padding-top:3%;
-  padding-bottom:3%
+  padding-bottom:3%;
+}
+.spacer_footer{
+  padding:1.5%;
+  background-color: #f9f9ff;
 }
 
 #login_home h2{

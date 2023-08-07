@@ -41,6 +41,7 @@
       height: inherit;
       padding: 20px;
       padding: 0 18%;
+      padding-bottom: 3%;
       }
       form {
       width: 100%;
@@ -118,46 +119,11 @@
       cursor: pointer;
       }
 
-      label.radio {
-      position: relative;
-      display: inline-block;
-      margin: 5px 20px 15px 0;
-      cursor: pointer;
-      }
       .question span {
       margin-left: 30px;
       }
       .question-answer label {
       display: block;
-      }
-      label.radio:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      border: 2px solid #ccc;
-      }
-      input[type=radio]:checked + label:before, label.radio:hover:before {
-        transition: 0.1s;
-      border: 2px solid  #669999;
-      }
-      label.radio:after {
-      content: "";
-      position: absolute;
-      top: 6px;
-      left: 5px;
-      width: 8px;
-      height: 4px;
-      border: 3px solid  #669999;
-      border-top: none;
-      border-right: none;
-      transform: rotate(-45deg);
-      opacity: 0;
-      }
-      input[type=radio]:checked + label:after {
-      opacity: 1;
       }
       .flax {
       display:flex;
@@ -167,7 +133,7 @@
       margin-top: 10px;
       text-align: center;
       }
-      button {
+      .form_submit {
       width: 150px;
       padding: 10px;
       border: none;
@@ -178,7 +144,7 @@
       cursor: pointer;
       transition: 0.3s;
       }
-      button:hover {
+      .form_submit:hover {
       background:  #084d7e;
       }
       @media (min-width: 568px) {
@@ -203,7 +169,7 @@
     <div class="testbox">
       <form action="">
         <div class="banner">
-          <h1>Family Medicine Practice</h1>
+          <h1>Office Creation Form</h1>
         </div>
         <br/>
         <fieldset>
@@ -237,16 +203,15 @@
           
         </fieldset>
         <div class="btn-block">
-          <input type="submit" value = "Submit">
+          <input class = "form_submit" type="submit" value = "Submit">
         </div>
       </form>
     </div>
-    <script>
 
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
+    <script>
 $(document).ready(function(){
   // Add smooth scrolling to all links
   $("a").on('click', function(event) {
@@ -275,6 +240,8 @@ $(document).ready(function(){
     <script>
         AOS.init();
       </script>
+      <hr>
+  {% include 'footer.html' %}
 </body>
 </html>
 {% endblock %}
