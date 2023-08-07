@@ -21,7 +21,6 @@ time_choices1 = [1200, 1230, 100, 130, 200, 230, 300, 330,
 def index(request):
     return render(request, 'index.html', {})
 
-@login_required(login_url='/user/login')
 def form(request):
     print("there")
     if request.method == 'POST':
@@ -41,6 +40,36 @@ def form(request):
         form = OfficeForm1()
 
     return render(request, 'form.html', {'form': form})
+
+@login_required(login_url='/user/login')
+def home1(request):
+    error = ''
+    name1 = None
+    if request.user.is_authenticated:
+        username = request.user.username
+    if request.method == 'POST':
+        name1 = request.POST.get('query')
+        print(name1)
+        offices = Office.objects.all()
+        office_names = []
+        for i in offices:
+            office_names.append(i)
+        for x in offices:
+            if x.name == name1:
+                print('Yes')
+                print(x.id)
+                error = ''
+                return redirect('/medical/results/{id}'.format(id=x.id))
+            else:
+                error = 'This office does not exist! Please try something else or create the page for it.'
+                 
+    offices = Office.objects.all()
+    office_names = []
+    for i in offices:
+        office_names.append(i.name)    
+    return render(request, 'home1.html', {'username': username, 'error': error, 'name1': name1})
+
+
 
 def home(request):
     #error = ''

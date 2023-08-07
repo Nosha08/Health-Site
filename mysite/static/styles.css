@@ -186,15 +186,10 @@ nav a:hover:before {
 
 .container-card {
   padding: 20px;
-  border-radius: 5px;
-  border: 12px solid #ffffff;
-  background-color: hsl(202, 60%, 53%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-  min-height: 500px;
-  margin: 80px;
-  margin-top: 0px;
+  color: #031f33;
+  background-color: black;
+  height: 100%;
+  margin-bottom:30px;
 }
 
 .title1 {
@@ -231,7 +226,7 @@ button a {
 }
 
 .alert-message1 {
-  color: red;
+  color: white;
   font-size: 22px;
 }
 /* 
@@ -589,7 +584,7 @@ footer a{
   padding-bottom:3%;
 }
 .spacer_footer{
-  padding:1.5%;
+  padding-top:1.5%;
   background-color: #f9f9ff;
 }
 
@@ -601,4 +596,11 @@ footer a{
 .form_input{
   color:black;
   padding-bottom: 20px;
+}
+
+.squeeze_footer{
+  padding: 0 5%;
+}
+.center_text{
+  text-align: center;
 }

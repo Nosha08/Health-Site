@@ -3,13 +3,16 @@
     <!-- Grid container -->
     <div class="container">
       <!-- Section: Links -->
+
+
+      {% if user.is_authenticated %}
       <section class="mt-5 link_footer">
         <!-- Grid row-->
         <div class="row text-center d-flex justify-content-center pt-5">
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <a href="/medical/home" class="text-white">Home</a>
+              <a href="/medical/home1" class="text-white">Home</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -17,7 +20,7 @@
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <a href="/medical/about" class="text-white">About</a>
+              <a href="/medical/home" class="text-white">About</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -48,6 +51,57 @@
         </div>
         <!-- Grid row-->
       </section>
+
+      {% else %}
+
+      <section class="mt-5 link_footer squeeze_footer">
+        <!-- Grid row-->
+        <div class="row text-center d-flex justify-content-center pt-5">
+          <!-- Grid column -->
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="/medical/home" class="text-white">Home</a>
+            </h6>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+<!--           <div class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="/medical/home" class="text-white">About</a>
+            </h6>
+          </div> -->
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="/medical/form" class="text-white">Form</a>
+            </h6>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="/user/login" class="text-white">Login</a>
+            </h6>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="/user/register" class="text-white">Signup</a>
+            </h6>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row-->
+      </section>
+
+{% endif %}
+
       <!-- Section: Links -->
 
       <hr class="my-5" />

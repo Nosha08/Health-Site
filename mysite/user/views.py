@@ -14,7 +14,7 @@ def login1(request):
             login(request, user)
             # Redirect to a success page.
             print('Yay')
-            return redirect('/medical/home')
+            return redirect('/medical/home1')
         else:
             messages.error(request, ('Error logging in!'))
             print('No')
@@ -34,10 +34,17 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ('Registration Successful!'))
-            return redirect('/medical/home')
-        
+            return redirect('/medical/home1')
+        else:
+            errors = form.errors.as_data()
+            for i in errors:
+                error_parts = i.split("'")
+                print(i)
+                error_string = str(error_parts)[1]
+                #print(error_string)
     else:
         form = UserCreationForm()
+
 
     return render(request, 'register.html', {'form': form})
 
