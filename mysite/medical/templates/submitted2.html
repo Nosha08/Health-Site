@@ -16,16 +16,13 @@
     </style>
 </head>
 <body>
-    <h1 onclick="home()" class = "submitted_title">Your Office Has Been Successfully Created!</h1>
+    <h1 onclick="home()" class = "submitted_title">Your Appointment Has Been Successfully Created!</h1>
     <h4 onclick="home()" class = "submitted_sub">Click anywhere to go home</h4>
     <a href="/medical/home1" class="submitted-btn"></a>
     <script>
         function home(){
-            {% if user.is_authenticated %}
             window.location.replace("/medical/home1")
-            {% else %}
-            window.location.replace("/medical/home")
-            {% endif %}
+
         }
     </script>
 </body>

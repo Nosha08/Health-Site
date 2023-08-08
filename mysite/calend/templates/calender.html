@@ -20,9 +20,7 @@
     <button id = "duplicate_btn" onclick = "history.back()">Back</a></button>
     {% else %}
     {% if submitted %}
-    <h1>Your appointment was created sucessfully!</h1>
-    <button id = "submitted_btn"><a id = "submitted_link" href = "/../medical/home1">Home</a></button>
-
+<script>window.location.replace("/medical/submitted2")</script>
     {% else %}
     <p>
     <div id = "calender">
@@ -44,9 +42,9 @@
         {{ form.office_id.as_hidden }}
         {% for i in time_options %}
             {% if i in times %}
-                <button class="button2" id="#buttonDis" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
+                <button class="button2" id="{{i}}" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}" disabled>{{ i }}</button>
             {% else %}
-                <button class="button1" id="#buttonNorm" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
+                <button class="button1" id="{{i}}" type = "button" onclick = "time_set('{{ i }}')" id = "{{ i }}">{{ i }}</button>
             {% endif %}
         {% endfor %}
         <br>
@@ -652,7 +650,7 @@
                 applyCalendarStyles(); // Apply styles when the page loads
             });
                 
-            
+            document.getElementById("id_time").value = "";
     </script>
 
 </body>

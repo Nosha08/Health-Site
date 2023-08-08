@@ -115,7 +115,7 @@ def create(request,office_id= 1, year=int(current_year), month=str(current_month
         if form.is_valid():
             for i in appointment_list:
                 if i.time == form.cleaned_data["time"] and i.date == form.cleaned_data["date"] and i.office_id == form.cleaned_data["office_id"]:
-                    return HttpResponseRedirect('/calendar/make_appointment?duplicate=True')
+                    return HttpResponseRedirect(f'/calendar/make_appointment/{office_id}?duplicate=True')
             form.save()
             
             return HttpResponseRedirect(f'/calendar/make_appointment/{office_id}/?submitted=True')

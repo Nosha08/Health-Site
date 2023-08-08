@@ -124,7 +124,7 @@ body {
     <h1 id = "login-title">Login System</h1>
         {% if messages %}
             {% for message in messages %}
-                <strong class="alert-message1">{{ message }}</strong>
+                <p class="alert-message1">{{ message }}</p>
             {% endfor %}
         {% endif %}
         </div>
@@ -167,7 +167,7 @@ body {
         {% csrf_token %}
         <input type="text" name = "username" placeholder="username"/>
         <input type="password" name ="password" placeholder="password"/>
-        <input type = "submit" value = "Submit">
+        <input type = "submit" value = "Login">
         <p class="message">Not registered? <a href="/user/register">Create an account</a></p>
       </form>
     </div>

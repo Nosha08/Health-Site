@@ -396,8 +396,8 @@ input[name="close"] {
   border-radius: 2pxs;
   color: #fff;
   font-size: 18px;
+  transition-duration: 200ms;
   cursor: pointer;
-  transition: background-color 0.2s ease;
   font-family: 'PT Sans Narrow', sans-serif;
   margin-top: 20px;
 }
@@ -406,7 +406,9 @@ input[name="close"] {
   background-color: #3b8cbd;
 }
 
-
+.selected_time:hover{
+  background-color: #031f33;
+}
 /*the container must be positioned relative:*/
 .autocomplete {
   position: relative;
@@ -648,4 +650,8 @@ footer a{
   .center-database{
     height:45vh;
   }
+}
+
+.selected_time{
+  background-color:#031f33;
 }

@@ -22,6 +22,8 @@ def index(request):
     return render(request, 'index.html', {})
 def submitted(request):
     return render(request,'submitted.html',{})
+def submitted2(request):
+    return render(request,'submitted2.html',{})
 def form(request):
     print("there")
     if request.method == 'POST':
@@ -71,7 +73,8 @@ def home1(request):
     return render(request, 'home1.html', {'username': username, 'error': error, 'name1': name1})
 
 
-
+def about(request):
+    return render(request,about.html,{})
 def home(request):
     #error = ''
     #name1 = None

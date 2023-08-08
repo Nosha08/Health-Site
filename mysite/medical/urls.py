@@ -14,4 +14,7 @@ urlpatterns = [
     path("results/<int:id>", views.results, name="custom_result"),
     path("test", views.test, name="test"),
     path("submitted", views.submitted, name="submitted"),
+    path("submitted2", views.submitted2, name="submitted"),
+    path("about", views.about, name="about"),
+
 ]
