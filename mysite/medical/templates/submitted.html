@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #031f33
+        }
+    </style>
+</head>
+<body>
+    <h1 onclick="home()" class = "submitted_title">Your Office Has Been Successfully Created!</h1>
+    <h4 onclick="home()" class = "submitted_sub">Click anywhere to go home</h4>
+    <a href="/medical/home1" class="submitted-btn"></a>
+    <script>
+        function home(){
+            window.location.replace("/medical/home1")
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

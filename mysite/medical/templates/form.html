@@ -169,7 +169,8 @@
   <body>
     {% include 'navbar.html' %}
     <div class="testbox">
-      <form action="">
+      <form action="" method = POST>
+        {% csrf_token %}
         <div class="banner">
           <h1 class = "form_title">Office Creation Form</h1>
         </div>

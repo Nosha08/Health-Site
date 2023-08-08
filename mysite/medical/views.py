@@ -20,7 +20,8 @@ time_choices1 = [1200, 1230, 100, 130, 200, 230, 300, 330,
 @login_required(login_url='/user/login')
 def index(request):
     return render(request, 'index.html', {})
-
+def submitted(request):
+    return render(request,'submitted.html',{})
 def form(request):
     print("there")
     if request.method == 'POST':
@@ -35,7 +36,7 @@ def form(request):
             description = form.cleaned_data['description']
             office = form.save()
 
-            return redirect('/medical/results/{id}'.format(id=office.id), id=office.id) 
+            return redirect('/medical/submitted') 
     else:
         form = OfficeForm1()
 
@@ -59,7 +60,7 @@ def home1(request):
                 print('Yes')
                 print(x.id)
                 error = ''
-                return redirect('/medical/results/{id}'.format(id=x.id))
+                return redirect('/medical/database')
             else:
                 error = 'This office does not exist! Please try something else or create the page for it.'
                  
@@ -153,7 +154,7 @@ def database(request):
                 print('Yes')
                 print(x.id)
                 error = ''
-                return redirect('/medical/results/{id}'.format(id=x.id))
+                return redirect('/calendar/calender/{id}'.format(id=x.id))
             else:
                 error = 'This office does not exist! Please try something else or create the page for it.'
     return render(request, 'database.html', {'offices': offices, "office_names":office_names })

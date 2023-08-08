@@ -32,14 +32,18 @@ body {
   background-attachment: fixed;  
   background-size: cover;
 }
-.center {
+.center-database {
   text-align: center;
-  padding-bottom:30%;
+  padding-bottom:20%;
   padding-top:6%;
   padding-left: 7%;
   padding-right: 7%;
+  height:40vh;
 
 }
+
+
+
 
 .higher {
   position: relative;
@@ -187,7 +191,7 @@ nav a:hover:before {
 .container-card {
   padding: 20px;
   color: #031f33;
-  background-color: black;
+  background-color:#f9f9ff;
   height: 100%;
   margin-bottom:30px;
 }
@@ -380,7 +384,9 @@ input[name="close"] {
 .submit-button3:hover {
   background-color: #3b8cbd;
 }
-
+.about h2{
+  color:white;
+}
 .button1 {
   padding: 15px;
   max-height: 50px;
@@ -399,15 +405,6 @@ input[name="close"] {
 .button1:hover {
   background-color: #3b8cbd;
 }
-
-h1 {
-  color: white;
-}
-
-h2 {
-  color: white;
-}
-
 
 
 /*the container must be positioned relative:*/
@@ -603,4 +600,52 @@ footer a{
 }
 .center_text{
   text-align: center;
+}
+.center{
+  text-align: center;
+  padding-bottom:30%;
+  padding-top:6%;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+.submitted_title{
+  color:#f9f9ff;
+  text-align: center;
+  padding:4%;
+  padding-bottom:1%;
+  cursor:pointer;
+  margin:0;
+}
+.submitted_sub{
+  color:#f9f9ff;
+  cursor:pointer;
+  text-align: center;
+  font-family:'Inter', sans-serif;
+  margin:0;
+  padding:3%;
+  padding-top: 0%;
+}
+.submitted-btn{
+  background-color: #f9f9ff;
+  padding:20px;
+  color:#031f33;
+  border-radius: 2px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@media only screen and (min-width: 1200px) {
+  .center-database{
+    height:52vh;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .center-database{
+    height:45vh;
+  }
 }

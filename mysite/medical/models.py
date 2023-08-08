@@ -7,6 +7,8 @@ class OfficeForm(models.Model):
     open = models.TimeField(auto_now=False, auto_now_add=False)
     close = models.TimeField(auto_now=False, auto_now_add=False)
     location = models.CharField(max_length=200)
+    description = models.CharField(max_length=400)
+
 
 
 class Office(models.Model):
@@ -14,7 +16,7 @@ class Office(models.Model):
     open = models.TimeField(auto_now=False, auto_now_add=False)
     close = models.TimeField(auto_now=False, auto_now_add=False)
     location = models.CharField(max_length=200)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=400)
     def get_absolute_url(self):
         return reverse('results', args=[str(self.id)])
     

@@ -124,6 +124,9 @@
             font-weight:bold;
             text-align: center;
         }
+        #signup_title{
+          color:white;
+        }
             </style>
 
 
@@ -133,7 +136,7 @@
 
     <div class="center_text">
         <h1 class="lower"> 
-        <h1>Registration System</h1>
+        <h1 id = "signup_title">Registration System</h1>
         {% if form.errors %}
         <ul>
             {% for i in error_list %}
@@ -142,7 +145,6 @@
             </ul>
         {% endif %}
         </div> 
-    </div>  
 
 <div class="login-page">
     <div class="form">

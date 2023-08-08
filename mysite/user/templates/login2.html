@@ -111,7 +111,9 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 
-
+#login-title{
+  color:white;
+}
 
     </style>
 </head>
@@ -119,7 +121,7 @@ body {
   {% include 'navbar.html' %}
     <div class="center_text">
         <div class="lower">
-    <h1>Login System</h1>
+    <h1 id = "login-title">Login System</h1>
         {% if messages %}
             {% for message in messages %}
                 <strong class="alert-message1">{{ message }}</strong>

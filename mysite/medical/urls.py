@@ -12,5 +12,6 @@ urlpatterns = [
     path("database", views.database, name="database"),
     path("about", views.about, name="about"),
     path("results/<int:id>", views.results, name="custom_result"),
-    path("test", views.test, name="test")
+    path("test", views.test, name="test"),
+    path("submitted", views.submitted, name="submitted"),
 ]
