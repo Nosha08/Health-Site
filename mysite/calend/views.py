@@ -7,7 +7,8 @@ from datetime import datetime
 from .models import *
 from datetime import date
 from medical.views import *
-
+def navbar(request):
+    return render(request,'navbar.html')
 def index(request):
     return HttpResponse("Hello, world. You're at the calendar index!")
 

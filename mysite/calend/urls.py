@@ -8,4 +8,5 @@ urlpatterns = [
     path("calender/<int:office_id>/<int:year>/", views.create, name = "create"),
     path("calender/<int:office_id>/<int:year>/<str:month>/", views.create, name = "create"),
     path("calender/<int:office_id>/<int:year>/<str:month>/<int:day>/", views.create, name = "create"),
+    path("navbar/", views.navbar, name="navbar")
 ]

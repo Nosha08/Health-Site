@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Signup</title>
 
 
     <style>
@@ -115,6 +115,9 @@
         
         .alert-message3{
             color:red;
+            list-style-type: none;
+            font-size:larger;
+            text-align: center;
         }
         .errorlist{
             color:red;
@@ -126,19 +129,24 @@
 
 </head>
 <body>
+  {% include 'navbar.html' %}
 
     <div class="center_text">
         <h1 class="lower"> 
         <h1>Registration System</h1>
         {% if form.errors %}
-            <p class="alert-message3">There was an error with your form, make sure your password isnt too simple or try another username</p>
+        <ul>
+            {% for i in error_list %}
+            <li class="alert-message3">{{i}}</li>
+            {% endfor %}
+            </ul>
         {% endif %}
         </div> 
     </div>  
 
 <div class="login-page">
     <div class="form">
-      <form action="{% url 'register' %}" method=POST class="login-form">
+      <form action="{% url 'register' %}" method=POST class="login-form" autocomplete="off">
         {% csrf_token %}
         {% for field in form %}
         <p class="form-field1">{{ field }}</p>

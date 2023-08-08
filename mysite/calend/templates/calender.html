@@ -8,10 +8,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Book An Appointment</title>
     <script src="https://kit.fontawesome.com/3d9e9bf06e.js" crossorigin="anonymous"></script>
 
 </head>
+<body>
+    {% include 'navbar.html' %}
 <p>
     {% if duplicate %}
     <p class = "error" style = "color:red">Error: This timeslot is already taken due to a refresh error. Please go back and refresh your page.</p>
@@ -22,15 +24,15 @@
     <button id = "submitted_btn"><a id = "submitted_link" href = "/../medical/home">Home</a></button>
 
     {% else %}
-    <center>
+    <p>
     <div id = "calender">
     <div class="box calendar">
-        <i class="higher left fa-light fa-less-than fa-2xl" onclick = "back()"></i>
-        <i class="higher right fa-light fa-greater-than fa-2xl" onclick = "next()"></i>
+        <i class="higher left fa-solid fa-angle-left fa-2xl" onclick = "back()"></i>
+        <i class="higher right fa-solid fa-angle-right fa-2xl" onclick = "next()"></i>
         {{ cal|safe }}
     </div>
     </div>
-
+</p>
 
     <form id = "appointment_form" action = "" method = POST>
         {% csrf_token %}
@@ -62,7 +64,7 @@
 
 </center>
 
-
+</body>
     <style>
         .error {
             color: rgb(152, 181, 235);
@@ -236,10 +238,16 @@
             border: 1px solid transparent;
             pointer-events: none;
         }
+        td {
+            padding: 30px;
+            margin: 10px;
+            cursor:pointer;
+        }
 
         .selected-day {
             color: green;
             font-weight: bolder;
+            cursor:default;
         }
 
         .no-slots {
@@ -248,14 +256,16 @@
         }
 
         .past-day {
-            color: red;
+            color: rgb(90, 90, 90);
             font-weight: bolder;
+            cursor:default
+        }
+        .fa-solid{
+            cursor:pointer;
+            padding-top: 10px;
+            padding-bottom: 20px;
         }
 
-        td {
-            padding: 30px;
-            margin: 10px;
-        }
 
         #buttonNorm {
             margin: 5px;

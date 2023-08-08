@@ -142,7 +142,22 @@ def results(request, id):
 @login_required(login_url='/user/login')
 def database(request):
     offices = Office.objects.all()
-    return render(request, 'database.html', {'offices': offices})
+    office_names = []
+    for i in offices:
+        office_names.append(i)
+    if request.method == 'POST':
+        name1 = request.POST.get('query')
+        print(name1)
+        for x in offices:
+            if x.name == name1:
+                print('Yes')
+                print(x.id)
+                error = ''
+                return redirect('/medical/results/{id}'.format(id=x.id))
+            else:
+                error = 'This office does not exist! Please try something else or create the page for it.'
+    return render(request, 'database.html', {'offices': offices, "office_names":office_names })
+
 
 @login_required(login_url='/user/login')
 def about(request):

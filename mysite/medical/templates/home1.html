@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 <body>
     
@@ -47,8 +47,12 @@
     }
     }
 </style>
-<div class="center" data-aos="fade-right">
-    <h1 class="title">Welcome to HealthTech, {{ username }}!</h1>
+
+{% include 'navbar.html' %}
+
+
+<div class="center" data-aos="fade-up">
+    <h1 class="title">Welcome to your Dashboard {{ username }}!</h1>
     <div class="sub-title">
         <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
         <h2>Search for a medical office near you!</h2>

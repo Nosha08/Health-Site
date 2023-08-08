@@ -25,6 +25,7 @@ def login1(request):
     
 
 def register(request):
+    error_list = []
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -38,15 +39,18 @@ def register(request):
         else:
             errors = form.errors.as_data()
             for i in errors:
-                error_parts = i.split("'")
-                print(i)
-                error_string = str(error_parts)[1]
-                #print(error_string)
+                for j in errors[i]:
+                    input_string = str(j)
+                    start_index = input_string.index("'") + 1
+                    end_index = input_string.rindex("'")
+                    extracted_text = input_string[start_index:end_index]
+                    error_list.append(extracted_text)
+
     else:
         form = UserCreationForm()
 
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html', {'form': form,'error_list': error_list})
 
 def logout1(request):
     logout(request)

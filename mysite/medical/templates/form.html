@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Family Medicine Practice</title>
+    <title>Create an Office</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
@@ -13,7 +13,7 @@
       min-height: 100%;
       background-color: #f9f9ff;
       }
-      body, div, form, input, select, textarea, label, p {
+      form, input, select, textarea, label, p {
       padding: 0;
       margin: 0;
       outline: none;
@@ -22,7 +22,7 @@
       color: #031f33;
       line-height: 22px;
       }
-      h1 {
+      .form_title {
       position: absolute;
       margin: 0;
       font-size: 38px;
@@ -48,6 +48,7 @@
       padding: 20px;
       border-radius: 6px;
       background: #fff;
+      margin-top:3%;
       }
       .banner {
       position: relative;
@@ -166,10 +167,11 @@
     </style>
   </head>
   <body>
+    {% include 'navbar.html' %}
     <div class="testbox">
       <form action="">
         <div class="banner">
-          <h1>Office Creation Form</h1>
+          <h1 class = "form_title">Office Creation Form</h1>
         </div>
         <br/>
         <fieldset>
