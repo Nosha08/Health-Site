@@ -16,14 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import debug_toolbar
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('calendar/', include('calend.urls')),
     #path('user/', include('django.contrib.auth.urls')),
     path('user/', include('user.urls')),
     path('medical/', include('medical.urls')),
+    path('__debug__/', include(debug_toolbar.urls)),  # <-- NEW
 
 ]
-
-urlpatterns += staticfiles_urlpatterns()
