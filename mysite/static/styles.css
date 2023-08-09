@@ -366,49 +366,13 @@ input[name="close"] {
   margin-top: 20px;
 }
 
-.submit-button3 {
-  padding: 15px;
-  min-height: 60px;
-  min-width: 125px;
-  background-color: #4ca3d1;
-  border: 1px solid #ffffff;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-family: 'PT Sans Narrow', sans-serif;
-  margin-top: 50px;
-}
 
-.submit-button3:hover {
-  background-color: #3b8cbd;
-}
 .about h2{
   color:white;
 }
-.button1 {
-  padding: 15px;
-  max-height: 50px;
-  max-width: 105px;
-  background-color: #4ca3d1;
-  border: 1px solid #ffffff;
-  border-radius: 2pxs;
-  color: #fff;
-  font-size: 18px;
-  transition-duration: 200ms;
-  cursor: pointer;
-  font-family: 'PT Sans Narrow', sans-serif;
-  margin-top: 20px;
-}
 
-.button1:hover {
-  background-color: #3b8cbd;
-}
 
-.selected_time:hover{
-  background-color: #031f33;
-}
+
 /*the container must be positioned relative:*/
 .autocomplete {
   position: relative;
@@ -652,6 +616,3 @@ footer a{
   }
 }
 
-.selected_time{
-  background-color:#031f33;
-}
