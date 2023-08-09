@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import mimetypes, os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     'calend.apps.CalendConfig',
     'user.apps.UserConfig',
     'debug_toolbar',
-    'medical.apps.MedicalConfig'
+    'medical.apps.MedicalConfig',
     ]
 
 MIDDLEWARE = [
@@ -61,16 +63,7 @@ INTERNAL_IPS = [
     '127.0.01'
 ]
 
-def show_toolbar(request):
-    return True
 
-DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
-    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
-}                                                              # <-- NEW
-
-if DEBUG:                                                      # <-- NEW
-    import mimetypes                                           # <-- NEW          
-    mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -93,12 +86,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "healthtechdb",
+        "USER": "healthtechdb_user",
+        "PASSWORD": "0IGNRTotObjv1Bg658wp1U2ZqvvQ46af",
+        "HOST": "dpg-cj9p5aqvvtos738m21tg-a",
+        "PORT": "5432",
     }
 }
+
 
 
 # Password validation
