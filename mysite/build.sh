@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Activate the virtual environment
-venv/Scripts/Activate.ps1
+venv\Scripts\Activate.ps1
 
 # Install dependencies using Poetry
 poetry install
