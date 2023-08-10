@@ -1,12 +1,17 @@
 #!/bin/bash
 
-# Activate the virtual environment
-venv\Scripts\Activate.ps1
+# Navigate to the parent directory of the current script's directory
+cd ..
 
-# Install dependencies using Poetry
-poetry install
+# Activate the virtual environment (assuming you're on Windows)
+source venv/Scripts/activate.ps1
 
-# Run your Django management commands
+# Navigate back to the script's directory
+cd mysite
+
+# Run necessary commands (e.g., Django management commands)
 python manage.py migrate
-python manage.py collectstatic --noinput
 # ... other commands ...
+
+# Deactivate the virtual environment
+deactivate
