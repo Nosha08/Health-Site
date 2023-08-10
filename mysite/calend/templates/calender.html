@@ -82,6 +82,22 @@
             margin-top: 20px;
         }
 
+        .button2 {
+            text-decoration:line-through;
+            padding: 15px;
+            max-height: 50px;
+            max-width: 105px;
+            background-color:#5a5a5a;
+            border: 1px solid #f9f9ff;
+            border-radius: 2px;
+            color: #f9f9ff;
+            font-size: 16px;
+            transition-duration: 200ms;
+            cursor: default;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+
 .button1:hover {
   background-color: #286e9a;
 }
@@ -130,7 +146,7 @@
         }
 
         .error {
-            color: rgb(152, 181, 235);
+            color: red;
             font-size: 24px;
             margin-top: 10px;
             font-weight: bolder;
@@ -307,6 +323,11 @@
             font-size: 1.5rem;
             cursor:pointer;
             border: 1px solid white;
+            cursor:pointer
+        }
+
+        td:hover{
+            background-color:#0a3757;
         }
         th{
             font-size: 1.5rem;
@@ -344,6 +365,10 @@
             background-color:#0d3f63;
             font-weight: bolder;
             cursor:default;
+        }
+        .selected-day:hover{
+            background-color:#0d3f63;
+
         }
         .calendar-container {
             display: flex;

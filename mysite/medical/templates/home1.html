@@ -13,8 +13,9 @@
 <body>
     
 <style>
-    body {
-        background-image: url("../static/images/dark-city-bg.png");
+    .center {
+        background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url("../static/images/city.jpeg") no-repeat;
+        /* background-image: url("../static/images/city.jpeg"); */
         background-repeat: no-repeat;
         background-size: cover;
         background-blend-mode: darken;
@@ -46,6 +47,11 @@
         background-position: 200% center;
     }
     }
+
+    .dashboard-sec1{
+        color: #031f33;
+        background-color: #f9f9ff;
+    }
 </style>
 
 {% include 'navbar.html' %}
@@ -55,25 +61,15 @@
     <h1 class="title">Welcome to your Dashboard {{ username }}!</h1>
     <div class="sub-title">
         <h2>An everday solution for those in search of a medical office and accessible appointment booking system!</h2>
-        <h2>Search for a medical office near you!</h2>
     </div>
-    <!-- <div class="lower1">
-        <form class="form1" action="" method="POST">
-            {% csrf_token %}
-            <input class="search-input" type="text" name="query" placeholder="Search for a medical office..."/>
-            <button class="search-button" type="submit">Search</button>
-        </form>
-    </div> -->
-<!-- 
-    {% if name1 %}
-        <p class="alert-message1">{{ error }}</p>
-    {% else %}
-        <p class="message">{{ none }}</p>
-    {% endif %}
 
-    <h2>Office creation form <a href="/medical/form">here!</a></h2> -->
 </div>
 
+<section class = "dashboard-sec1">
+    <h1>Book an Appointment Here</h1>
+    <p>Choose from a variety of medical offices to find a time and place that works for you</p>
+    <a href = "/medical/database">Clinic Booking</a>
+</section>
 <div class="spacer_footer"></div>
 
 {% include 'footer.html' %}
