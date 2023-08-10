@@ -3,7 +3,7 @@
 set -o errexit
 
 # Change the working directory to the root of your Django project
-cd C:/Users/simon.saffayeh/Documents/GitHub/Health-Site/mysite
+cd ./mysite
 
 # Install dependencies
 poetry install
