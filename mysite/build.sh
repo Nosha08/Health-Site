@@ -1,16 +1,12 @@
-#!/usr/bin/env bash
-# exit on error
-source venv/Scripts/Activate.ps1
-set -o errexit
+#!/bin/bash
 
-# Change the working directory to the root of your Django project
-cd ./mysite
+# Activate the virtual environment
+venv/Scripts/Activate.ps1
 
-# Install dependencies
+# Install dependencies using Poetry
 poetry install
 
-# Run Django management commands
-python manage.py collectstatic --no-input
+# Run your Django management commands
 python manage.py migrate
-
-# You can include other commands here if needed
+python manage.py collectstatic --noinput
+# ... other commands ...
