@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # exit on error
+source venv/Scripts/Activate.ps1
 set -o errexit
 
 # Change the working directory to the root of your Django project
