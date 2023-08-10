@@ -7,7 +7,7 @@ class OfficeForm(models.Model):
     open = models.TimeField(auto_now=False, auto_now_add=False)
     close = models.TimeField(auto_now=False, auto_now_add=False)
     location = models.CharField(max_length=200)
-    description = models.CharField(max_length=400)
+    description = models.CharField(max_length=400, default = "")
 
 
 
